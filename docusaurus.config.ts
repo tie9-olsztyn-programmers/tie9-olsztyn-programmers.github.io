@@ -10,7 +10,7 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://tie9-olsztyn-programmers.github.io',
+  url: 'https://tie9-olsztyn-programmers.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -18,7 +18,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'tie9-olsztyn-programmers', // Usually your GitHub org/user name.
-  projectName: 'tie9-olsztyn-programmers.github.io', // Usually your repo name.
+  projectName: 'tie9-olsztyn-programmers.io', // Usually your repo name.
   deploymentBranch: 'master',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
