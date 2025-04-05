@@ -1,31 +1,60 @@
 .hero {
-    text-alig: center;
+    text-align: center;
     padding: 3rem 1rem;
+    background-color: #000000;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 2px #00ff00;
 }
 
 .grid {
     display: flex;
     justify-content: center;
     gap: 2rem;
-    margin-top:2rem;
+    margin-top: 2rem;
     flex-wrap: wrap;
-
 }
 
-.card{
-    border: 1px solid #eaeaea;
+.card {
+    position: relative;
+    border: 1px solid #00ff00;
     border-radius: 10px;
     padding: 1.5rem;
     text-align: center;
-    width: 150px;
+    width: 250px;
     text-decoration: none;
-    color: inherit;
-    background-color: #f9f9f9;
-    transition: transform 0.2s ease-in-out;
+    color: #00ff00;
+    background-color: #001100;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
 }
 
 .card:hover {
-    transform: scale(1.1);
-    background-color: #f0f0f0;
+    transform: scale(1.05);
+    background-color: #002200;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    animation: glitch 0.3s linear;
 }
 
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(2px, -1px);
+    }
+    60% {
+        transform: translate(-1px, 2px);
+    }
+    80% {
+        transform: translate(2px, 1px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}

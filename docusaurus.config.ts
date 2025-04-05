@@ -82,14 +82,14 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/tie9-olsztyn-programmers',
           label: 'GitHub',
           position: 'right',
         },
       ],
     },
     footer: {
-      style: 'dark',
+     /* style: 'dark',
       links: [
         {
           title: 'Docs',
@@ -130,7 +130,7 @@ const config: Config = {
             },
           ],
         },
-      ],
+      ],*/
       copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
     },
     prism: {
