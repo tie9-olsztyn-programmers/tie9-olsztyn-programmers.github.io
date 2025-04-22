@@ -20,7 +20,7 @@ export default function HomePage() {
                         <p> Kotlin,  Android, Android Studio – koduj do kieszeni!</p>
                     </a>
 
-                    <a href="https://tie9-olsztyn-programmers.github.io/web/" className={styles.card}>
+                    <a href="https://tie9-olsztyn-programmers.github.io/desktop/" className={styles.card}>
                         <FaDesktop size={40} />
                         <h2>Aplikacje Desktopowe</h2>
                         <p>C#, Avalonia, Rider – klasyka interfejsu lokalnego.</p>
