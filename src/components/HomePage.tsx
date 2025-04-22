@@ -8,19 +8,19 @@ export default function HomePage() {
 
             <div className={styles.grid}>
                 <div className={styles.grid}>
-                    <a href="https://twoja-org.github.io/kurs-web" className={styles.card}>
+                    <a href="https://tie9-olsztyn-programmers.github.io/web/" className={styles.card}>
                         <FaLaptopCode size={40} />
                         <h2>Aplikacje Webowe</h2>
                         <p>JS,TS, MERN, Webstorm ... Cały świat w przeglądarce.</p>
                     </a>
 
-                    <a href="https://twoja-org.github.io/kurs-mobile" className={styles.card}>
+                    <a href="https://tie9-olsztyn-programmers.github.io/mobile/" className={styles.card}>
                         <FaMobileAlt size={40} />
                         <h2>Aplikacje Mobilne</h2>
                         <p> Kotlin,  Android, Android Studio – koduj do kieszeni!</p>
                     </a>
 
-                    <a href="https://twoja-org.github.io/kurs-desktop" className={styles.card}>
+                    <a href="https://tie9-olsztyn-programmers.github.io/web/" className={styles.card}>
                         <FaDesktop size={40} />
                         <h2>Aplikacje Desktopowe</h2>
                         <p>C#, Avalonia, Rider – klasyka interfejsu lokalnego.</p>
