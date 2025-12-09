@@ -1,0 +1,104 @@
+---
+title: Commit
+---
+
+
+## Przed `commit`em
+### Staging Area - co to jest?
+:::note *Staging Area* (*Index*):
+- element procesu tworzenia commitów,
+- pełni rolę tymczasowego obszaru, w którym użytkownik może przygotować zmiany przed zapisaniem ich w repozytorium,
+- to miejsce, gdzie znajdują się pliki lub ich fragmenty, które zostały wybrane do następnego `commit`a.
+
+:::
+
+:::note Jak działa *Staging Area*?
+- Obszar roboczy (*Working Directory*) - jest to katalog, w którym pracujesz nad swoim projektem (*CRUD*):
+    - modyfikując pliki,
+    - tworząc nowe pliki
+    - lub usuwając stare.
+- *Staging Area* (*Index*): Jest to pośredni krok między obszarem roboczym a utworzeniem `commit`a.
+    - Zanim zmiany trafią do repozytorium, muszą zostać dodane do Staging Area.
+    - W tym momencie decydujesz, które zmiany z obszaru roboczego chcesz zapisać w następnym commicie.
+- Repozytorium Git: Ostatecznie, kiedy tworzysz `commit`, zmiany znajdujące się w *Staging Area* zostają zapisane w repozytorium, a tym samym stają się trwałą częścią historii projektu.
+
+:::
+
+### Jak "utworzyć" Staging Area/Poczekalnię?
+- `git add .` - dodaj wszystkie pliki do poczekalni
+- `git add <nazwapliku>` - dodaj ten oto plik do poczekalni
+
+### Jak sprawdzić stan Poczekalni i Repozytorium?
+-` git status`
+
+
+## `Commit`
+- To zapisanie zmian w kodzie do lokalnego repozytorium.
+- Jest to jeden z najważniejszych elementów systemu kontroli wersji, ponieważ umożliwia tworzenie historycznych zapisów modyfikacji projektu.
+
+:::tip `commit` zawiera:
+- Zmiany w plikach – np. dodanie nowych linii kodu, usunięcie plików czy zmiany w istniejących plikach.
+- Opis zmian (commit message) – krótki komentarz wyjaśniający, co zostało zmienione i dlaczego.
+- ID commita – unikalny identyfikator (hash), który pozwala jednoznacznie zidentyfikować daną wersję zmian.
+
+:::
+
+### Jak zrobić `commit`a?
+- `git commit -m "Opis zmian"`
+
+### Opis zmian powinien być:
+- zwięzły i jasny
+- krótki (max 50 znaków)
+- w trybie rozkazującym
+- jeden `commit` jedna zmiana - a t o m o w o ś ć
+- zwierać opis Co i Dlaczego
+
+#### przykłady dobrych `commit`ów:
+-           Fix bug causing 500 error on user profile page
+- Add user authentication via OAuth
+- Update README to include setup instructions
+- Refactor database queries to improve performance
+- Remove deprecated API endpoints
+
+#### przykłady błędnych `commit`ów:
+- *Fixed bugs*
+- *Changes made to authentication*
+- *Update*
+- *Refactor*
+- *Miscellaneous fixes*
+
+#### 10 typowych angielskich czasowników używanych w `commit`ach:
+- `Add`
+    - Dodanie nowej funkcjonalności lub pliku.
+    - Przykład: *Add login functionality*
+- `Fix`
+    - Naprawienie błędu.
+    - Przykład: *Fix null pointer exception in login form*
+- `Update`
+    - Zaktualizowanie istniejącej funkcjonalności lub pliku.
+    - Przykład: *Update dependencies to latest versions*
+- `Remove`
+    - Usunięcie pliku lub funkcjonalności.
+    - Przykład: *Remove unused CSS classes*
+- `Refactor`
+    - Zmiana struktury kodu bez zmiany jego funkcjonalności.
+    - Przykład: *Refactor user authentication logic*
+- `Improve`
+    - Ulepszenie istniejącej funkcjonalności.
+    - Przykład: *Improve performance of data fetching*
+- `Optimize`
+    - Optymalizacja pod kątem wydajności.
+    - Przykład: *Optimize image loading for faster page render*
+- `Clean`
+    - Usunięcie niepotrzebnych lub przestarzałych elementów.
+    - Przykład: *Clean up old configuration files*
+- `Implement`
+    - Wdrożenie nowej funkcji lub algorytmu.
+    - Przykład: *Implement password reset functionality*
+- `Test`
+    - Dodanie lub aktualizacja testów.
+    - Przykład: *Test user login with new validation rules*
+
+
+
+

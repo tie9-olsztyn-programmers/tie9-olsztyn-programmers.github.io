@@ -1,0 +1,30 @@
+---
+title: Pierwsza praca z gitem
+---
+- zrób folder
+- wewnątrz folderu wykonaj instrukcję `git init`
+- zobacz co powstało w folderze `ls -a` (pokaże ukryte pliki)
+- zrób pliki
+        - `touch first.txt`,
+        - `touch second.txt`
+- sprawdź status repo git status
+- dodaj plik do indeksu `git add first.txt`
+- dodaj wszystkie pliki do poczekalni `git add .`
+- sprawdź status repo
+- dopisz krótki tekst do pliku `nano first.txt`
+- sprawdź status repo
+- dodaj wszystko do repo
+- zrób pierwszy `commit` - `git commit -m "first commit"` (nie uda się)
+- skonfiguruj swoje repozytorium
+- kolejny raz spróbuj zrobić `commit`
+- sprawdź status repo
+- edytuj plik `first` i dodaj nową linię do pliku `nano first.txt`
+- sprawdź status repo
+- dodaj wszystkie zmiany do staging area i zrób commita `git commit -am "drugi commit"`
+- wylistu wszystkie `commit`y -  `git log`
+- sprawdź, co znajduje się w pliku `first.txt`,
+- instrukcja, która przeniesie cię do pierwszego `commit`a - `git checkout <hash>`
+    (to stan `detached HEAD`, czyli może przeglądać i uruchamiać aplikację, ale zmiany nie będą uwzględnione w aktualnej gałęzi)
+- po tym przeniesieniu, sprawdź co znajduje się w pliku `first.txt`
+- powrót do "normalnego" stanu repo, czyli wyjście z detached HEAD, `git checkout master` lub `git checkout main`
+

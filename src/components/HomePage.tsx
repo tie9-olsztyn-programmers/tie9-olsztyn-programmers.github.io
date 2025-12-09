@@ -1,5 +1,5 @@
 import React from "react";
-import { FaLaptopCode, FaMobileAlt, FaDesktop } from 'react-icons/fa';
+import { FaLaptopCode, FaMobileAlt, FaDesktop, FaGamepad } from 'react-icons/fa';
 import styles from './styles.module.css';
 
 export default function HomePage() {
@@ -25,13 +25,15 @@ export default function HomePage() {
                         <h2>Aplikacje Desktopowe</h2>
                         <p>C#, Avalonia, Rider – klasyka interfejsu lokalnego.</p>
                     </a>
+
+                    <a href="https://tie9-olsztyn-programmers.github.io/godot/" className={styles.card}>
+                        <FaGamepad size={40}/>
+                        <h2>Godot</h2>
+                        <p>GameDev</p>
+                    </a>
+
+
                 </div>
-                <h3> Kalendarz z zadaniami </h3>
-               <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FWarsaw&showPrint=0&showTz=0&showCalendars=0&showTabs=0&src=anMuZHlkYWt0eWthQGdtYWlsLmNvbQ&src=cGwucG9saXNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%23E4C441"
-                        style={{borderWidth: 0}}
-                        width="800"
-                        height="600"
-                        scrolling="no"></iframe>
 
             </div>
         </div>

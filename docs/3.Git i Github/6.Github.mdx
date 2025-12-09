@@ -1,0 +1,91 @@
+---
+title: Github
+---
+
+:::note Definicja
+- GitHub to platforma internetowa do hostowania kodu źródłowego, która
+opiera się na systemie kontroli wersji Git.
+- Github Oferuje szereg narzędzi i funkcji do zarządzania projektami programistycznymi,
+ułatwiając współpracę zespołową nad kodem, śledzenie zmian, oraz automatyzację procesów.
+- Hostowanie (ang. *hosting*) oznacza udostępnianie zasobów komputerowych
+(takich jak serwery, przestrzeń dyskowa czy moce obliczeniowe) w celu
+    - przechowywania,
+    - udostępniania treści lub
+    - usług w internecie.
+    - W kontekście różnych zastosowań, *hosting* może oznaczać różne rzeczy, ale
+ogólnie sprowadza się do tego, że dane są przechowywane na serwerach,
+które są dostępne przez internet, aby użytkownicy mogli z nich korzystać.
+-  GitHub umożliwia tworzenie stron internetowych bezpośrednio z repozytoriów.
+Możesz opublikować swoją witrynę, portfolio, dokumentację lub stronę projektu,
+korzystając z *GitHub Pages*, które automatycznie publikują pliki HTML, CSS i JavaScript.
+
+:::
+
+
+# Czym jest origin?
+- `origin` to domyślna nazwa nadawana przez Git dla zdalnego repozytorium,
+z którym jest powiązane Twoje lokalne repozytorium.
+Kiedy klonujesz repozytorium z GitHub lub innego serwera, Git
+automatycznie nazywa to zdalne repozytorium "origin".
+- `origin` jest nazwą symboliczną, która odnosi się do pełnego adresu URL zdalnego repozytorium. Na przykład:
+    - `git clone https://github.com/<użytkownik>/<nazwarepozutorium>.git`
+    - Git przypisze nazwie origin adres do tego repozytorium
+
+
+# Praca na GitHubie
+- załóż konto na GitHubie
+- zrób publiczne repozytorium
+- w lekcji z Gitem, zrobiłeś lokalne repo, sprawdź, czy jest ono podłączone do jakiegoś zdalnego repo:
+`git remote -v` (-v pochodzi od verbose)
+- dodaj swoje lokalne repo do właśnie utworzonego repo na Githubie (czyli łączymy lokalne ze zdalnym):
+    - skopiuj adres *https* swojego zdalnego repo
+    - w konsoli w swoim lokalnym repo wykonaj instrukcję `git remote add origin https://github.com/uzytkownik/nazwa-repozytorium.git`
+    - sprawdź, czy twoje lokalne repo jest podłączone do zdalnego `git remote -v`
+    - aby "wypchnąć" lokalne repo do zdalnego wykonaj instrukcję `git push -u origin main`
+        - jeżeli pojawił się błąd: sprawdź, jak nazywa się twoja gałąź `git branch`
+        - jeżeli jest to master: twoje repo wypchniesz przez instrukcję `git push - origin master`
+
+**Wyjaśnienie**:
+`git push -u origin main`
+- `origin`: odnosi się do zdalnego repozytorium, z którym jest połączone Twoje lokalne repozytorium.
+- `main`: odnosi się do gałęzi, którą chcesz wypchnąć na zdalne repozytorium (w tym przypadku to gałąź main)
+- `-u` ustawia relację między lokalną a zdalną gałęzią, aby ułatwić przyszłe operacje Git.
+
+
+Po tej komendzie `git push -u origin main`,
+w przyszłości będziesz mógł po prostu wpisywać `git push` lub `git pull`,
+a Git automatycznie będzie wiedział, że ma operować na gałęzi main w repozytorium origin.
+
+# `gh auth login` rozwiązanie problemu z autoryzacją
+https://cli.github.com/
+
+- nie możesz zrobić `git push` dopóki nie potwierdzisz, że masz do tego uprawnienia
+- logowanie przy użyciu loginu i hasła z githuba nie powiedzie się ze względów bezpieczeństwa
+- rozwiązaniem jest użycie programu wspierającego autoryzację `gh`
+- `sudo apt install gh` zainstaluje *gh* na twoim komputerze (w przypadku innych systemów sprawdź link: https://cli.github.com/)
+- `gh auth login` - w konsoli wpisz tę instrukcję i wykonaj krok po kroku działania przewidziane przez program *gh*
+- gdyby pojawiły się problemy z autoryzacją przez *gh* spróbuj wykonać instrukcję `gh auth setup-git`, która wspiera połączenie *gh* z *git*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

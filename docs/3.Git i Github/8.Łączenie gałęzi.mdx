@@ -1,0 +1,95 @@
+---
+title: merge - łączenie gałęzi
+---
+
+
+## Łączenie gałęzi z zachowaniem historii `git merge <nazwa-gałęzi>`
+
+- `git merge` to polecenie, które pozwala na łączenie zmian z jednej gałęzi do innej.
+- Głównym celem `git merge` jest scalanie historii dwóch różnych gałęzi, tak aby wszystkie
+zmiany z obu gałęzi znalazły się w jednej wspólnej gałęzi.
+- Najczęściej `git merge` jest używany do:
+    - Łączenia zmian z gałęzi funkcyjnych (`feature-branch`) do głównej gałęzi.
+    - Łączenia zmian z głównej gałęzi do innej gałęzi, aby zaktualizować ją o najnowsze zmiany.
+
+
+#### Jak dochodzi do `git merge`
+Do `git merge` dochodzi, gdy:
+- chcesz połączyć zmiany z jednej gałęzi do innej.
+- masz przynajmniej dwie różne gałęzie z różnymi zmianami.
+- próbujesz zintegrować te zmiany, używasz `git merge`, aby utworzyć jeden spójny stan projektu.
+
+
+#### Sposób działania - `git merge`a
+- Łączy historię bieżącej gałęzi (tej, na której stoisz) z gałęzią podaną w poleceniu.
+- Wynik to jeden wspólny commit scalający (merge commit), jeśli były rozbieżności.
+- Jeśli zmiany nie nachodzą na siebie → Git automatycznie połączy.
+- Jeśli zmiany są w tych samych liniach plików → powstaje konflikt, który trzeba ręcznie rozwiązać.
+
+
+#### Scenariusz 1 - bez konfliktu
+- gałąź główna `master`
+- na gałęzi `feature/new-function` wprowadź zmiany w jakimś pliku
+- zmiany dodaj do poczekalni, a potem zrób `commit`
+- przełącz się na gałąź `master` (`git switch master`)
+- połącz gałęzie `git merge feature/new-function`
+- sprawdź wynik `git log --oneline`
+
+
+### Scenariusz 2 - konflikt w zmianach
+- gałąź główna `master` w pliku np. `A.txt` ma zmiany, które są *zacommitowane*,
+- gałąź `feature/galaz-z-konflitem` **w tym samym pliku** `A.txt` ma inne zmiany, które zostały *zacommitowane*
+
+
+Jeśli te same linie w tych samych plikach zostały zmienione w obu gałęziach, Git napotka konflikt.
+
+Git wskaże pliki z konfliktami, a Ty będziesz musiał ręcznie wybrać, które zmiany zachować, a które usunąć.
+
+Wyedytuj plik, który wygenerował błąd — przykładowy plik z konfliktem:
+```txt
+<<<<<<< HEAD
+to pi e r w s z z y tekst TO JEST MASTE
+=======
+wwto jest tu to jest coś z FEATURE_NEW tekst
+>>>>>>> feature/new-func
+to jest nowy tekst
+teraz trzy teraz jestem na githubie
+
+```
+**z n a c z n i k i   k o n f l i k t u**
+- `<<<<<<< HEAD `
+    - linia ta oznacza początek konfliktu
+    - pokazuje, że poniższy fragment pochodzi z gałęzi, na której aktualnie się znajdujesz
+- `=======`
+    - linia ta jest separatorem
+    - oznacza koniec zmian z pierwszej gałęzi, a początek zmian z drugiej gałęzi, którą próbujesz scalić
+- `>>>>>>> feature/new-func`
+    - linia ta oznacza koniec konfliktu
+    - informuje, że powyższe linie po `=======` pochodzą z gałęzi `feature/new-func`,
+  czyli z gałęzi, którą próbujesz scalić.
+
+:::warning
+Po ręcznym rozwiązaniu konfliktu:
+- usuń wszystkie znaczniki konfliktu,
+- dodaj pliki do Git  (`git add .`) i kontynuuj *merge*'a (`git merge --continue`)
+
+:::
+
+### `merge` na przykłądzie obrazków
+```
+(main) A --- B --- C
+                   \
+(feature)           D --- E
+```
+- Gałąź `main` kończy się na commicie C.
+- Gałąź `feature` ma dodatkowe commity D i E.
+
+
+Teraz przenosimy się na `main` - `git switch main` i
+łączymy dane z `feature` z danymi na gałęzi `main` - `git merge feature`
+```ascii
+(main) A --- B --- C -------- M
+                   \        /
+(feature)           D --- E
+
+```

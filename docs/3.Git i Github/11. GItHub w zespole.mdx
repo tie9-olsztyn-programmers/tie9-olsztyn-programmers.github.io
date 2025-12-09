@@ -1,0 +1,45 @@
+---
+title: Github w pracy zespołowej
+---
+
+
+## Gdy pracujesz z kolegą
+1. Na Githubie macie wspólne repo, gałąź `master` zdalną,
+2. Aktualizujesz dane na swojej lokalnej `master` z gałęzią `master` zdalną przez `git pull origin master`
+3. Chcesz pracować lokalnie nad wspólnym projektem, więc:
+ - tworzysz lokalnie dodatkową gałąź `git switch -c moja-praca` (oczywiście nazwa *moja-praca* może być zastąpiona inną)
+ - pracujesz na swojej gałęzi `moja-praca`
+ - twój kolega w tym czasie może wypushować swoje commity na GitHuba, więc wasz projekt zaczyna mieć różne historie
+ - na tej gałęzi zrobiłeś własne commity
+4. Chcesz wysłać swoje commity na GitHuba. Aby nie było konfliktów:
+ - przełączas się u siebie lokalnie na master `git switch master`
+ - aktualizujesz swoją lokalną gałąź `master` przez `git pull origin master`
+ - teraz lokalnie dokonujesz dopasowania historii projektu `rebase`
+  - `git switch moja-praca` (przełączasz się na swoją pracę)
+  - `git rebase master` (uzgadniasz jej historię z aktualną historią `master`)
+ - teraz lokalnie dokonujesz połączenia **bez zmiany historii** `merge`
+  - `git switch master`
+  - `git merge moja-praca`
+ - teraz wysyłasz swoje master na GitHuba `git push origin master`
+
+Dzięki tej procedurze zmniejszycie prawdopodoństwo konfliktów
+
+
+:::important W pracy zespołowej najlepiej robić tak:
+- pracujesz na własnej gałęzi (np. `moja-praca`),
+- przed scaleniem robisz `rebase` tej gałęzi na `master`, żeby dopasować jej historię,
+- następnie na `master` robisz `merge` z gałęzią `moja-praca`,
+- na końcu pushujesz `master` na GitHuba.
+- pamiętaj o aktualizacji lokalnej gałezi `master`
+
+:::
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,87 @@
+---
+title: Branches (gałęzie) w Git
+---
+
+
+## Co to jest *branch* (gałąź lokalna)?
+:::note Gałąź jako tor kolejowy
+- `main`/`master` = główny tor kolejowy (stabilna trasa).
+- `branch` = bocznica, gdzie możesz puścić pociąg testowy.
+- `commit` = kolejne stacje, przez które przejeżdża pociąg.
+- `merge` = zjazd z bocznicy z powrotem na główny tor.
+Dzięki gałęziom masz więc pewność, że eksperymentujesz na bocznicy, nie blokując głównej linii ruchu.
+
+:::
+
+### Sprawdzenie gałęzi, na której jesteś
+- `git branch`
+
+### Tworzenie nowej gałęzi
+- `git branch <nazwa>`
+- Tworząc nazwę gałęzi stosuj *kebab-case*,
+czyli wszystkie słowa pisane są małymi literami, a łączone są znakiem `-`.
+
+inny sposób:
+- `git switch -c <nazwa>`
+- tworzysz nową gałąź i przechodzisz do niej.
+
+### Przełączanie się na inne gałęzie
+- `git switch <nazwa>`
+
+
+### Usuwanie gałęci
+- `git branch -d <nazwa>` (bezpieczne usuwanie, jeżeli zmergowana, to zostanie usunięta)
+- `git branch -D <nazwa>` (*delete force*, czyli wymuszone usuwanie - gałąź zostanie usunięta, nawet jeżeli jest zmergowana)
+
+
+## Gałąź na Githubie (gałąź zdalna)
+
+### Gałąź lokalna przesłana do repozytorium zdalnego:
+- Jeżeli lokalnie zrobisz gałąź, wyślij ją na GitHuba:
+- `git push origin <nazwa-nowej-gałęzi>`
+
+
+Wysyłanie (`push`) nowej gałęzi do zdalnego repozytorium (np. na GitHub):
+- nie musisz być na tej konkretnej gałęzi, którą chcesz wysłać,
+- możesz być na dowolnej gałęzi lokalnej i wciąż wysłać inną gałąź do zdalnego repozytorium.
+
+`git push origin <nazwa-galezi>`
+
+W tym poleceniu:
+- `origin` – odnosi się do zdalnego repozytorium, do którego wysyłasz gałąź (domyślnie origin).
+- nazwa-galezi – odnosi się do nazwy lokalnej gałęzi, którą chcesz wysłać do zdalnego repozytorium.
+
+
+### Gałąź zdalna "ściągnięta" do repozytorium lokalnego:
+- twórz gałąź na Githubie,
+- utwórz na tej gałęzi nowy plik
+    - `git branch` wyświetla wszystkie lokalne gałęzie
+    - `git branch -r` wyświetla wszytkie zdalne gałęzie
+    - `git fetch` aktualizuje informacje o zdalnych gałęziach w twoim lokalnym repozytorium
+  (po tej instrukcji wylistuj repozytoria `git branch -r`)
+    - `git switch -c <nowa-gałaz> origin/nowa-galaz>` - wyjaśnienie:
+        - `git switch -c <nowa-galaz>` – tworzy nową lokalną gałąź o nazwie `<nowa-galaz>`.
+        - `origin/<nowa-galaz>` – wskazuje na zdalną gałąź `<nowa-galaz>` z origin, która jest bazą do utworzenia lokalnej gałęzi.
+        - np. `git switch -c feature-login origin/feature-login`
+            - `-c feature-login` tworzysz nową lokalną gałąź o tej nazwie,
+          - `origin/feature-login`  mówisz Gitowi, że ma bazować na gałęzi zdalnej `origin/feature-login`.
+
+nowsza syntaktyka uproszczona:
+##### `git switch --track origin/nazwa`
+Git sam stworzy lokalną gałąź feature-login połączoną ze zdalną.
+
+
+### Gdy na lokalnej gałęzi zrobiłeś zmiany
+- przełącz się na gałąź (lokalnie), która jest lokalnie i zdalnie
+- zmień zawartość jednego z plików (lokalnych)
+- będąc na tej gałęzi wykonaj
+- `git push` lub `git push -u origin <nazwa-tej-galezi>`
+        - `-u` (`--set-upstream`) ustawia powiązanie (upstream) między lokalną gałęzią a zdalną
+        - `origin` skrót do zdalnego adresu do repozytorium
+        - `<nazwa-tej-galezi>` to nazwa gałezi, którą wysyłasz na GitHub
+
+
+
+
+
+

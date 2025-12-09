@@ -1,0 +1,57 @@
+---
+title: rebase - przepisywanie historii
+---
+
+## Przepisanie historii - `git rebase`
+- `git rebase` to polecenie w Gicie, które zmienia bazę (punkt startowy) danej gałęzi.
+- Mówiąc prosto: przepisuje historię commitów, tak aby wyglądało, jakby Twoja gałąź powstała później – już po najnowszych commitach innej gałęzi.
+
+
+- `rebase` zmienia historię commitów  (nie wolno go robić na gałęziach, które już zostały wypchnięte i nad którymi pracują inni).
+- W przypadku konfliktów,  trzeba je rozwiązać podobnie jak przy merge, a potem kontynuować (`git rebase --continue`).
+
+
+### Scenariusz 1. - bez konfliktu
+1. Utwórz repo
+2. Utwórz plik `nowy.txt`
+3. Zacommituj go.
+4. Zmien zawartość pliku `nowy.txt` i zakomituj te zmiany.
+5. Utwórz gałąź `druga` i utwórz na niej plik `abc.txt`
+6. Zacommituj tę zmianę na gałęzi `druga`.
+7. Wpisz jakiś nowy tekst w tym pliku `abc.txt` i zacommituj te zmiany.
+8. Sprawdź logi gałęzi `druga` oraz logi gałęzi `master`
+9. Wróć na gałąź `master` i zrób nowy plik `trzeci.txt` oraz zacommituj tę zmianę na gałęzi `master`
+10. Edytuj plik `trzeci.txt` wprowdzając w nim jakiś tekst oraz zacommituj te zmiany.
+11. Sprawdź logi gałęzi `master` i gałęzi `druga` (różnica dwóch commitów).
+12. Przenieś się  na gałąź `druga`.
+13. Będąc na gałęzi `druga` zrób `rebase`, czyli `git rebase master`
+14. Sprawdź logi gałęzi `druga`.
+
+:::info `git rebase master` po ludzku
+- „Weź moją gałąź nowa i ustaw ją tak, jakby wszystkie jej commity zostały zrobione dopiero po najnowszych commitach z master”,
+albo inaczej:
+- „Przenieś historię gałęzi nowa na koniec gałęzi master”.
+
+:::
+
+### Scenariusz 2. - konflitk
+**Kontynuujemy** nasze repo z gałęziami `master` oraz `druga`
+
+15. Będąc na gałęzi `master` edytuj plik `nowy.txt` (zmień zawartość pierwszej linii).
+16. Zacommituj zmiany.
+17. Przenieś się na gałąź `druga` i również edytuj plik `nowy.txt` wprowadzając w pierwszej linii inne zmiany.
+18. Zacommituj zmiany.
+19. Wykonaj przepisanie historii `git rebase master`
+- będzie konflikt
+- edytuj plik `nowy.txt`
+- ręcznie rozwiąż konflikt i usuń znaczniki wprowadzone przez git
+- zapisz zmiany
+- dodaj zmiany do poczekalni
+- kontynuuj przepisywanie historii `git rebase --continue`
+20. Sprawdź zawartość pliku `nowy.txt` na gałęzi `druga`.
+21. Przełącz się na gałąź `master`.
+22. Sprawdź zawartość pliku `nowy.txt` na gałęzi `master`.
+23. Zrób `git merge nowa`, czyli wszystkie zmiany z gałęzi `druga` zostaną przepisane do master, a history już jest dopasowana.
+24. Sprawdź zawartość pliku `nowy.txt`.
+
+

@@ -1,0 +1,27 @@
+---
+title: Podstawowe cechy systemu Git
+---
+
+
+
+1. Rozproszony system kontroli wersji
+    - Każdy programista ma pełną kopię repozytorium (z całą historią), więc można pracować bez stałego dostępu do internetu.
+    - Dzięki temu nie ma jednego „wąskiego gardła” – każdy komputer jest pełnoprawnym repozytorium.
+2. Śledzenie historii zmian
+    - Git przechowuje historię projektu w postaci commitów – migawkowych zapisów stanu plików w danym momencie.
+    - Każdy commit ma unikalny identyfikator (hash SHA-1), autora, datę i opis zmian.
+3. Gałęzie (branching) i łączenie (merging)
+    - Git pozwala tworzyć wiele równoległych gałęzi rozwoju – np. główną (main) i eksperymentalną (feature).
+    - Gałęzie można później scalać (merge), łącząc różne ścieżki rozwoju w jedną.
+4. Praca lokalna i zdalna
+    - Możesz pracować lokalnie, a potem wysyłać zmiany do repozytorium zdalnego (np. GitHub, GitLab, Bitbucket).
+    - Polecenia push (wysyłanie) i pull (pobieranie) synchronizują pracę między zespołem.
+5. Szybkość i efektywność
+    - Git działa bardzo szybko – porównywanie zmian czy przełączanie się między wersjami to operacje na lokalnej bazie danych, nie w sieci.
+6. Bezpieczeństwo danych
+    - Każdy commit jest zabezpieczony kryptograficznie (SHA-1), więc trudno „zgubić” lub podmienić dane bez wykrycia.
+7. Elastyczność
+    - Git obsługuje zarówno małe projekty jednoosobowe, jak i ogromne repozytoria zespołowe.
+    - Można go używać
+        - w prosty sposób (tylko commit + push),
+        - albo wykorzystywać zaawansowane techniki (rebase, cherry-pick, submodules).

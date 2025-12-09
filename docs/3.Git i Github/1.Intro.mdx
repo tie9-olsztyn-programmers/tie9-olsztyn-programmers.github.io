@@ -1,0 +1,74 @@
+---
+title: Co to  jest Git?
+---
+
+## Git - definicja
+Git to:
+- popularny, darmowy, i open-source'owy system kontroli wersji (ang. Version Control System, VCS),
+- pozwala na:
+    - śledzenie zmian w kodzie źródłowym oraz
+    - współpracę wielu osób nad projektem.
+
+Został stworzony przez Linusa Torvaldsa w **2005** roku, pierwotnie jako narzędzie do zarządzania rozwojem jądra Linuxa
+
+## Metafory
+:::tip Git magiczna maszyna do podróży w czasie
+Wyobraź sobie, że Git to magiczna maszyna czasu:
+- W środku jest księga twojego projektu – każda strona to aktualny stan wszystkich plików.
+- Za każdym razem, gdy robisz `commit`, tak jakbyś odkładał zakładkę i notatkę w księdze: *„Tu skończyłem, tak wyglądał świat w tym momencie”*.
+- Gdy otwierasz księgę później, możesz przewijać strony do tyłu i oglądać, jak projekt wyglądał kiedyś – albo pójść naprzód i zobaczyć rozwój historii.
+- Gałęzie (`branch`) są jak równoległe opowieści – alternatywne ścieżki fabuły. Możesz rozwijać różne wersje tej samej historii równolegle, a potem zdecydować, że scalasz je w jedną narrację.
+- `merge` to takie zszycie dwóch wątków w jedną spójną opowieść.
+- `Remote` (np. *GitHub*) to dodatkowa kopia księgi, trzymana w innej bibliotece – żeby inni mogli do niej zaglądać, dopisywać własne strony i wspólnie snuć tę samą historię.
+
+:::
+
+:::note Git jako gra RPG
+- `commit` = zapis stanu gry (save).
+- `branch` = alternatywna ścieżka fabuły – możesz iść inną drogą, ale wciąż zachować stare sejwy.
+- `merge` = łączenie różnych przygód drużyny w jedną historię.
+- `remote` (*GitHub*) = wspólny serwer gry, gdzie kilku graczy zapisuje swoje sejwy i rozwija tę samą kampanię.
+
+
+:::
+
+
+
+
+## Git - instalacja
+https://git-scm.com/
+
+`sudo apt install git`
+`git --version`
+
+
+## Git - konfiguracja
+Konfiguracja dla tylko **tego oto** repozytorium:
+- `git config  user.name "Twoje Imię"`
+- `git config  user.email "twojemail@example.com"`
+
+Konfiguracja dla **całego systemu**:
+- `git config --global user.name "Twoje Imię"`
+- `git config --global user.email "twojemail@example.com"`
+
+
+
+## Co to jest flaga (*flag*), inaczej przełącznik (*switch*)?
+- Parametry takie jak na przykład `-c` nazywamy flagami (*flags*) lub przełącznikami (*switches*).
+- Są one powiązane z komentadmi wydawanymi w konsoli w systemach Linux i Windows.
+- użycie flagi odpowiednio modyfikuje działanie danej instrukcji wydawanej w konsoli.
+
+
+W kontekście Git (i ogólnie narzędzi *CLI*), mamy dwa rodzaje flag:
+- Flagi krótkie (*short options*): Są to pojedyncze znaki poprzedzone myślnikiem (`-`).
+- Przykłady:
+  - `-c` (odpowiednik `--create`)
+  - `-m` (odpowiednik `--message` przy *commitach*)
+  - `-b` (odpowiednik `--branch` przy* checkout*)
+
+
+- Flagi długie (*long options*): Są to pełne nazwy opcji poprzedzone dwoma myślnikami (`--`).
+- Przykłady:
+  - `--create`
+  - `--message`
+  - `--branch`
