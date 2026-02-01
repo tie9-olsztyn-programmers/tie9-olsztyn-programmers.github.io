@@ -1,0 +1,131 @@
+---
+title: Liczby pseudolosowe
+---
+
+
+# Liczby pseudolosowe
+- Aby skorzystać z losowości w Pythonie, musimy najpierw „zaprosić” odpowiedni moduł do naszego programu.
+- Robimy to za pomocą instrukcji `import random`.
+
+## Losowe liczby całkowite - `randint()`
+Zacznijmy od liczb całkowitych (integers). Wyobraź sobie klasyczną kostkę do gry.
+
+Funkcja, która nas tu interesuje, to `random.randint(a, b)`.
+- `a` to początek zakresu.
+- `b` to koniec zakresu.
+```python
+import random
+
+print(random.randint(1,100))
+```
+
+## Losowe liczby zmiennoprzecinkowe - `random()`
+1. Podstawa: random.random()
+
+Zwraca liczbę `float` z przedziału `[0.0,1.0)`.
+
+Oznacza to, że `0.0` może zostać wylosowane, ale `1.0` już nie.
+
+```python
+import random
+
+szansa = random.random()
+print(szansa)
+# Wynik np.: 0.8123491...
+```
+
+2. Konkretny zakres: `random.uniform(a, b)`
+
+Zwraca liczbę `float` z przedziału `a` do `b`.
+
+
+:::tip Zaokrąglanie wyniku
+- Liczby zmiennoprzecinkowe wyglądają brzydko na wyjściu (np. 38.421991283).
+- Na maturze często wymagane jest podanie wyniku z określoną dokładnością.
+
+Używamy funkcji `round(liczba, miejsca_po_przecinku)`.
+
+:::
+
+```python
+import random
+
+temperatura = random.uniform(36.6, 40.0)
+print(temperatura) # np. 37.36504644900828
+
+ladny_wynik = round(temperatura, 2) # Np. 38.42
+print(ladny_wynik) # np. 37.37
+
+```
+
+
+---
+## Obliczanie liczby `π` metodą Monte Carlo
+
+Metoda Monte Carlo polega na modelowaniu procesu losowego w celu obliczenia wartości, która jest trudna (lub niemożliwa) do wyznaczenia analitycznie. Na maturze często pojawia się w kontekście obliczania pola powierzchni nietypowych figur lub właśnie przybliżania liczby $\pi$.
+
+## 1. Koncepcja Geometryczna
+
+# Obliczanie Pi metodą Monte Carlo 🎲
+
+Metoda Monte Carlo polega na modelowaniu procesu losowego w celu obliczenia wartości, która jest trudna (lub niemożliwa) do wyznaczenia analitycznie. Na maturze często pojawia się w kontekście obliczania pola powierzchni nietypowych figur lub właśnie przybliżania liczby Pi.
+
+## 1. Koncepcja Geometryczna
+
+Wyobraź sobie kwadrat o boku `a = 1`. Wpisujemy w niego ćwiartkę koła o promieniu `r = 1`.
+
+* **Pole kwadratu:** Pk = a * a = 1
+* **Pole ćwiartki koła:** Pc = (Pi * r^2) / 4 = Pi / 4
+
+Stosunek tych pól to:
+> Pc / Pk = (Pi / 4) / 1 = Pi / 4
+
+Stąd wzór na Pi:
+> **Pi = 4 * (Pc / Pk)**
+
+W metodzie Monte Carlo "strzelamy" losowymi punktami w ten kwadrat. Jeśli strzelimy wystarczająco dużo razy, stosunek punktów, które trafiły w koło (`nk`), do wszystkich punktów (`n`), przybliży nam stosunek pól.
+
+> **Pi ≈ 4 * (nk / n)**
+
+## 2. Implementacja w Pythonie
+
+Użyjemy funkcji `random.random()`, która generuje liczby z zakresu `[0, 1)`. To idealnie pokrywa nasz kwadrat jednostkowy.
+
+### Algorytm:
+1. Ustal liczbę prób `n` (im więcej, tym dokładniejszy wynik).
+2. W pętli losuj współrzędne punktu `(x, y)`.
+3. Sprawdź, czy punkt leży wewnątrz koła (z twierdzenia Pitagorasa: `x^2 + y^2 <= r^2`).
+4. Zliczaj trafienia.
+5. Oblicz wynik końcowy.
+
+```python
+import random
+
+def oblicz_pi(n: int) -> float:
+    trafienia = 0
+
+    # Używamy '_' jako nazwy zmiennej, gdy nie jest ona nam potrzebna w pętli
+    for _ in range(n):
+        x = random.random()  # Losuje 0.0 <= x < 1.0
+        y = random.random()
+
+        # Sprawdzamy warunek koła (r=1, więc r^2=1)
+        # x^2 + y^2 <= 1
+        if x**2 + y**2 <= 1:
+            trafienia += 1
+
+    return 4 * trafienia / n
+
+# Testujemy
+n_prob = 1_000_000  # Python pozwala używać '_' dla czytelności liczb
+wynik = oblicz_pi(n_prob)
+
+print(f"Przybliżenie Pi dla {n_prob} prób: {wynik}")
+
+import math
+print(f"Błąd bezwzględny: {abs(math.pi - wynik)}")
+
+```
+
+
+

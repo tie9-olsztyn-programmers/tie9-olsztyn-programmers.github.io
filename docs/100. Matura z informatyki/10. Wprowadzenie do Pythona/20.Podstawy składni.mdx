@@ -1,0 +1,113 @@
+---
+title: Podstawy składni
+---
+
+# Podstawy składni Python
+W Pythonie  rządzi **indentacja** (wcięcia).
+
+## 1. Zmienne i Typowanie
+Python jest typowany dynamicznie i silnie.
+Nie deklarujemy typu słowami `let`, `var` czy `int`.
+
+```python
+# To jest komentarz
+liczba = 10          # int
+pi = 3.14            # float
+tekst = "Matura"     # str
+czy_zdane = True     # bool (Pamiętaj o wielkiej literze!)
+
+```
+
+:::tip
+W Pythonie `True` i `False` piszemy zawsze wielką literą.
+
+To częsty błąd na początku przesiadki z TS/C#!
+
+:::
+
+## 2. Operatory matematyczne
+
+Większość jest standardowa:
+Operator	|   Działanie   |	Przykład
+---         |  ---          | ---
+`/`	        | Dzielenie zmiennoprzecinkowe	| 5 / 2 = 2.5
+`//`        | Dzielenie całkowite (częste na maturze!) |	5 // 2 = 2
+`%`         | Reszta z dzielenia (modulo)	| 5 % 2 = 1
+`**`        | Potęgowanie |	2 ** 3 = 8
+
+
+## 3. Wejście i Wyjście (I/O)
+
+Na maturze dane wczytujemy z plików lub ze standardowego wejścia.
+```kotlin
+# Wypisywanie
+liczba = 1122
+print("Wynik to:", liczba)
+
+# Wczytywanie (zawsze zwraca string!)
+user_input = input("Podaj liczbę: ")
+print(f"{user_input =}")
+N = int(user_input) # Konwersja typu (casting)my z plików lub ze standardowego wejścia
+print(N)
+```
+
+## 4. Funkcje
+
+Zamiast `fun` (Kotlin) czy `function` (TS), używamy słowa kluczowego def.
+```python
+def pole_prostokata(a: float, b: float) -> float:
+    wynik = a * b
+    return wynik
+
+# Wywołanie
+print(f"pole prostokąta 5x4 to {pole_prostokata(5, 4)}" )
+```
+
+## 5. Pętle
+:::tip Metafora
+Wyobraź sobie, że masz posłodzić herbatę trzema łyżeczkami cukru. Zamiast pisać instrukcję:
+```
+Wsyp łyżeczkę.
+Wsyp łyżeczkę.
+Wsyp łyżeczkę.
+```
+Używasz pętli: `Powtórz 3 razy: Wsyp łyżeczkę`.
+
+Dzięki temu kod jest krótszy i łatwiejszy do modyfikacji (gdybyś nagle chciał 100 łyżeczek)
+
+
+:::
+
+### 1. Pętla `for` (Iteracja)
+- W Pythonie pętla `for` działa bardziej jak `foreach` w innych językach.
+- Przechodzi przez elementy sekwencji (np. listy lub zakresu liczb).
+
+```python
+# Iteracja po zakresie liczb (0, 1, 2, 3, 4)
+for i in range(5):
+    print(i)
+
+```
+:::tip Funkcja `range()`
+Funkcja range(): To ona generuje liczby. Jest bardzo elastyczna:
+- `range(5)`        -> 0, 1, 2, 3, 4 (stop, domyślny start to 0)
+- `range(2, 6)`     -> 2, 3, 4, 5 (start, stop - bez ostatniej liczby!)
+- `range(0, 10, 2)` -> 0, 2, 4, 6, 8 (start, stop, krok)
+
+:::
+
+### 2. Pętla `while` (Warunek)
+- Działa tak długo, jak warunek jest prawdą (True).
+- Pamiętaj o zmianie zmiennej sterującej, aby nie wpaść w pętlę nieskończoną!
+
+```python
+licznik = 0
+while licznik < 3:
+    print("Działam...")
+    licznik += 1  # W Pythonie nie ma operatora licznik++
+
+```
+
+
+
+

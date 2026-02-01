@@ -1,0 +1,103 @@
+---
+title: Wprowadzenie do Pythona
+---
+
+# Wprowadzenie do Pythona
+
+Będziemy pracować w PyCharm od Jetbrains
+
+## Python i Wirtualne Środowisko
+Zanim napiszemy pierwszą linię kodu, musimy zrozumieć,
+jak Python różni się od tego, co znacie z C# czy Kotlina, oraz jak zarządzać bibliotekami,
+aby nie doprowadzić do konfliktów.
+
+### 1. Czym jest Python?
+Python to:
+- język **interpretowany**,
+- wysokiego poziomu
+- ogólnego przeznaczenia.
+
+:::note Typowanie — rodzaje
+1. Typowanie dynamiczne vs statyczne("kiedy?")-odnosi się do tego, kiedy sprawdzane są typy.
+    - C# / Kotlin (**statyczne**):
+        - Typy są sprawdzane przy kompilacji.
+        - Jeśli spróbujesz dodać napis do liczby, kompilator (IDE) krzyknie na czerwono jeszcze przed uruchomieniem.
+    - Python (**dynamiczne**):
+        - Typy są sprawdzane w trakcie działania programu (runtime).
+        - Zmienna `x` w jednej linii może być liczbą, a w kolejnej napisem.
+
+2. Typowanie Silne vs Słabe ("Jak bardzo?") - odnosi się do tego, jak surowo język traktuje mieszanie różnych typów.
+    - **Słabe** typowanie (np. JavaScript/PHP):
+        - Język próbuje "być miły" i dokonuje niejawnej konwersji (implicit conversion).
+        - JavaScript: 5 + "5" == "55" (Liczba została cicho zamieniona na napis).
+    - **Silne** typowanie (Python):
+        - Język nie pozwala na operacje między niekompatybilnymi typami bez wyraźnej prośby programisty.
+```python liczba = 10
+tekst = "20"
+
+# Python (Silne typowanie):
+wynik = liczba + tekst
+```
+:::
+
+#### Kluczowe różnice:
+* **Interpreter vs Kompilator:**
+    * W C# czy Kotlinie kod jest kompilowany do kodu pośredniego (bytecode/MSIL), a potem uruchamiany przez maszynę wirtualną (JVM/CLR).
+    * W Pythonie kod źródłowy jest czytany i wykonywany "w locie" przez **Interpreter**.
+  * *Konsekwencja:* Błędy składniowe wyjdą dopiero przy uruchomieniu (runtime), chyba że IDE (PyCharm) wyłapie je wcześniej.
+* **Dynamiczne typowanie:** Typ zmiennej jest określany w momencie przypisania wartości.
+* **"Batteries Included":** Python słynie z potężnej biblioteki standardowej.
+
+
+
+:::tip
+Na maturze nie martwisz się o zarządzanie pamięcią
+(Garbage Collection działa automatycznie, podobnie jak w JVM/.NET). Skupiasz się czysto na algorytmice.
+:::
+
+## 2. Wirtualne Środowisko (`venv`)
+
+Kiedy tworzycie nowy projekt w PyCharm, zauważycie, że automatycznie generuje on folder o nazwie `venv`. Jest to **Virtual Environment**.
+
+### Po co nam to?
+- W Node.js (TS) macie `node_modules` lokalnie dla projektu.
+- W Pythonie, domyślnie, pakiety instalowane przez `pip` trafiają do **jednego, globalnego katalogu** w systemie.
+
+Wyobraźcie sobie sytuację:
+1. Projekt A wymaga biblioteki `numpy` w wersji 1.0.
+2. Projekt B wymaga `numpy` w wersji 2.0.
+3. Instalując wersję 2.0 globalnie, psujecie Projekt A.
+
+### Jak działa `venv`?
+Wirtualne środowisko to **odizolowana kopia interpretera Pythona** wraz z osobnym folderem na biblioteki, stworzona specjalnie dla Waszego projektu.
+
+| Cecha | Środowisko Globalne | Wirtualne Środowisko (`venv`) |
+| :--- | :--- | :--- |
+| **Lokalizacja** | Katalogi systemowe | Folder projektu |
+| **Izolacja** | Brak (współdzielone przez wszystkie projekty) | Pełna (tylko dla tego projektu) |
+| **Bezpieczeństwo** | Ryzyko konfliktów wersji | Bezpieczne eksperymenty |
+
+
+
+### `venv` w PyCharm
+PyCharm automatycznie wykrywa i aktywuje `venv` w terminalu wbudowanym w IDE.
+Poznacie to po (zazwyczaj) nawiasie na początku linii w terminalu:
+
+
+:::warning Ważne!
+Folderu `venv` nie wrzucamy do repozytorium (Git).
+Zawiera on pliki wykonywalne i biblioteki specyficzne dla Twojego komputera.
+W pliku `.gitignore` (utworzonego przez nas w głównej ścieżce) powinna znaleźć się linia:
+```
+venv/
+```
+
+:::
+
+:::tip Przydatne pluginy
+- Rainbow Bracets (kolorowanie nawiasów)
+- ExcelReader (podgląd plików txt, csv w postaci tabeli)
+- Intend Rainbow (podlgąd wcięć)
+- CodeGlance Pro (mapka kodu)
+
+:::

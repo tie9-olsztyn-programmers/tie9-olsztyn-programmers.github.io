@@ -1,0 +1,157 @@
+---
+title: Struktury danych
+---
+
+:::tip metafora
+Wyobraź sobie, że struktury danych to różne rodzaje "pojemników" w warsztacie.
+- niektóre służą do układania rzeczy jedna na drugiej (jak stos talerzy),
+- inne pozwalają na błyskawiczne znalezienie konkretnego narzędzia (jak opisana szufladka).
+
+Wybór odpowiedniej struktury ma kluczowy wpływ na to, jak szybko działa nasz program i ile pamięci zużywa.
+
+:::
+
+# Struktury Liniowe: Więcej niż Tablice
+
+- W innych językach rozróżniamy tablice (`int[]`) od list (`List<int>`).
+- W Pythonie głównym bohaterem jest **Lista**, która potrafi udawać prawie wszystko.
+
+## 1. Lista (`list`)
+- To dynamiczna sekwencja elementów.
+- W przeciwieństwie do tablic w C#, lista w Pythonie może przechowywać różne typy danych
+
+### Podstawy pracy
+```python
+# Deklaracja
+liczby = [1, 5, 10, 15]
+
+# Dostęp (indeksowanie od 0)
+print(liczby[0])  # -> 1
+print(liczby[-1]) # -> 15 (Ostatni element - super przydatne!)
+
+# Modyfikacja
+liczby.append(20) # Dodanie na koniec (szybkie: O(1))
+liczby[1] = 99    # Zmiana wartości
+
+# Liczba elementów
+ilosc_elementow = len(liczby) # 4
+```
+
+### *Slicing* (wycinanie)
+- Pozwala pobierać fragmenty list bez pętli `for`.
+- Składnia: `lista[start:stop:krok]`
+
+```python
+t = [0, 1, 2, 3, 4, 5]
+
+print(t[1:4])   # -> [1, 2, 3] (od indeksu 1 do 3 włącznie)
+print(t[:3])    # -> [0, 1, 2] (pierwsze trzy)
+print(t[::-1])  # -> [5, 4, 3, 2, 1, 0] (odwrócenie listy!)
+
+```
+
+
+### *List comprehensions*
+
+Klasyczne podejście:
+```python
+liczby = [1, 2, 3, 4, 5]
+kwadraty = []
+for x in liczby:
+    if x % 2 == 0:
+        kwadraty.append(x**2)
+
+print(kwadraty) # [4, 16]
+
+```
+
+Wersja pythonowa
+```python
+liczby = [1, 2, 3, 4, 5]
+#          [co_zrobic   dla_kogo  z_czego     warunek      ]
+kwadraty = [x**2        for x     in liczby   if x % 2 == 0]
+print(kwadraty)
+```
+(te spacje między wyrażeniami nie są istotne)
+
+### Pułapka referencji
+W Pythonie przypisanie listy do nowej zmiennej nie kopiuje jej,
+a jedynie tworzy nową etykietę (referencję) do tego samego obiektu w pamięci.
+
+```python
+a = [1, 2, 3]
+b = a          # b wskazuje na to samo co a!
+b[0] = 999
+
+print(a)       # -> [999, 2, 3]  <-- Zmieniło się też 'a'!
+
+```
+Jak to naprawić (Kopiowanie): Jeśli potrzebujesz niezależnej kopii, musisz użyć jednej z metod:
+- `b = a[:]` (najczęstszy sposób - slicing całej listy)
+- `b = a.copy()`
+- `b = list(a)`
+
+### Operacje "In-Place" vs Zwracanie Wyniku 🔄
+Metody list w Pythonie często modyfikują listę w miejscu i zwracają None.
+- `lista.sort()`  sortuje oryginalną listę, nic nie zwraca (wynik to None).
+- `sorted(lista)` tworzy nową, posortowaną listę, oryginał zostaje bez zmian.
+
+---
+## 2. Krotka (tuple)
+- Krotka to niezmienna (immutable) lista.
+- Raz stworzona, nie może być edytowana. Używamy jej, gdy dane mają być stałe (np. współrzędne punktu, wymiary planszy).
+
+```python
+# Krotka używa nawiasów okrągłych
+punkt = (10, 20)
+x, y = punkt  # Rozpakowywanie (destructuring) - znacie to z Kotlina/JS
+
+# punkt[0] = 5  <- BŁĄD! TypeError: 'tuple' object does not support item assignment
+
+```
+
+## 3. Stos
+
+:::note Stos (*Stack*)
+- Wyobraź sobie stos talerzy w kuchni. Kiedy układasz talerze jeden na drugim:
+    - ten, który położysz na samym szczycie jako ostatni,
+    - będzie pierwszym, który zdejmiesz.
+- Zasada działania: LIFO (*Last In, First Out*) – Ostatnie Weszło, Pierwsze Wyszło.
+
+
+Kiedy jest wykorzystywany?
+- Funkcja "Cofnij" (Undo/Ctrl+Z): W edytorach tekstu ostatnia wykonana akcja jest zdejmowana ze stosu jako pierwsza, gdy chcesz ją cofnąć.
+- Stos wywołań (Call Stack): Gdy program wywołuje funkcję wewnątrz innej funkcji, komputer musi pamiętać, gdzie wrócić po zakończeniu tej zagnieżdżonej funkcji.
+- Sprawdzanie poprawności nawiasów: W kodzie lub matematyce, aby upewnić się, że każdy nawias otwierający ma pasujący nawias zamykający.
+
+
+:::
+
+```python
+stos = ["A", "B"]
+stos.append("C")
+print(stos)         # ['A', 'B', 'C']
+print(stos.pop())   # -> "C"
+print(stos)         # ['A', 'B']
+```
+
+
+
+## 4. Kolejka
+
+:::note Kolejka (*Queue*)‍♀️
+- Pomyśl o kolejce do kasy w sklepie. Osoba, która ustawi się w kolejce jako pierwsza, zostanie obsłużona jako pierwsza. Nowe osoby dochodzą na koniec kolejki.
+- Zasada działania: FIFO (*First In, First Out*) – Pierwsze Weszło, Pierwsze Wyszło.
+- Kiedy jest wykorzystywana?
+    - Buforowanie wydruku: Dokumenty wysłane do drukarki czekają w kolejce. Ten wysłany pierwszy, drukuje się pierwszy.
+    - Obsługa żądań na serwerze: Jeśli wiele osób próbuje wejść na stronę w tym samym momencie, serwer obsługuje ich żądania po kolei.
+    - Algorytm BFS: Przeszukiwanie grafu wszerz (np. znajdowanie najkrótszej drogi w labiryncie).
+
+
+
+
+
+
+
+
+
