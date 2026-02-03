@@ -1,0 +1,113 @@
+---
+title: Struktury nieliniowe
+---
+
+# Struktury Nieliniowe w Pythonie
+W odróżnieniu od struktur liniowych (takich jak listy, stosy czy kolejki),
+gdzie elementy są ułożone jeden po drugim (sekwencyjnie),
+w **strukturach nieliniowych** jeden element może być połączony z wieloma innymi.
+
+
+Dane te nie tworzą prostego łańcucha, lecz organizują się w:
+- **hierarchie** (drzewa) lub
+- **sieci** (grafy).
+
+
+## 🌳 Drzewa Binarne (*Binary Trees*)
+:::info **Drzewo binarne**
+- to hierarchiczna struktura danych, w której każdy węzeł (*node*) ma posiada
+**co najwyżej dwoje dzieci**.
+- dzieci te są precyzyjnie rozróżniane jako:
+1.  **Lewe dziecko** (*Left Child*)
+2.  **Prawe dziecko** (*Right Child*)
+
+Węzeł nieposiadający żadnych dzieci nazywany jest **liściem** (*leaf*).
+
+:::
+
+### Gdzie się tego używa? (Zastosowania Maturalne)
+
+Zrozumienie drzew binarnych jest kluczem do rozwiązania wielu zadań maturalnych.
+Najczęściej spotykane:
+
+- **BST (Binary Search Tree)**
+    – Drzewo Poszukiwań Binarnych.
+    - Kluczowa struktura pozwalająca na szybkie wyszukiwanie (`O(\log n)`),
+  gdzie `lewe < rodzic < prawe`.
+
+:::tip `lewe < rodzic < prawe`
+- Definiuje istotę **Drzewa Poszukiwań Binarnych (BST)**.
+- Oznacza on, że dla **każdego** węzła w drzewie muszą być spełnione dwa warunki:
+
+1.  Wartość w **lewym** dziecku (i całym lewym poddrzewie) musi być **mniejsza** od wartości rodzica.
+2.  Wartość w **prawym** dziecku (i całym prawym poddrzewie) musi być **większa** od wartości rodzica.
+
+:::
+
+### Prosta implementacja
+```python
+class Node:
+    def __init__(self, value):
+        self.value = value      # Przechowywana dana (np. liczba)
+        self.left = None        # Lewe poddrzewo (początkowo puste)
+        self.right = None       # Prawe poddrzewo (początkowo puste)
+
+    def __repr__(self):
+        return f"Node({self.value})"
+
+```
+
+użycie dla
+```
+      10
+     /  \
+    5    20
+   /
+  3
+```
+
+```python
+# Create the root
+root = Node(10)
+
+# Add children to root
+root.left = Node(5)
+root.right = Node(20)
+
+# Add child to the left node (grandchild of root)
+root.left.left = Node(3)
+
+# Weryfikacja struktury
+print(f"Root: {root.value}")             # 10
+print(f"Left child: {root.left.value}")  # 5
+print(f"Left-Left leaf: {root.left.left.value}") # 3
+
+
+```
+
+- **Kopce (Heaps)**
+    - używane w algorytmie sortowania przez kopcowanie (Heapsort) oraz w kolejkach priorytetowych.
+- **Drzewa Wyrażeń**
+    - Służą do reprezentacji równań matematycznych (np. w Odwrotnej Notacji Polskiej).
+- **Kodowanie Huffmana**
+    - Algorytm kompresji danych, częsty spotykany na maturze,
+    - opiera się na budowie drzewa binarnego na podstawie częstości występowania znaków.
+
+
+Na maturze najważniejszym rodzajem jest **Drzewo Binarne**, gdzie każdy rodzic ma co najwyżej dwoje dzieci (lewe i prawe).
+
+Rozgałęzienia lub mapowania. Relacje są bardziej złożone.
+
+    Drzewa (Trees):
+
+        Drzewa binarne (BST).
+
+        Kopiec (Heap) – tu jest jego logiczne miejsce!
+
+    Słowniki i Zbiory (Hash Tables):
+
+        dict – klucz-wartość.
+
+        set – unikalne elementy.
+
+    Grafy: Sieć połączeń (wierzchołki i krawędzie).

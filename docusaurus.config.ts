@@ -30,7 +30,13 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  // 1. Dodaj tę linię w tablicy themes (jeśli nie masz tablicy themes, stwórz ją)
+  themes: ['@docusaurus/theme-mermaid'],
 
+  // 2. Włącz obsługę w Markdown
+  markdown: {
+    mermaid: true,
+  },
   presets: [
     [
       'classic',
@@ -137,6 +143,11 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
+
+
+
+
+
   } satisfies Preset.ThemeConfig,
 };
 

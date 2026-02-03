@@ -62,69 +62,74 @@ print(ladny_wynik) # np. 37.37
 ---
 ## Obliczanie liczby `π` metodą Monte Carlo
 
-Metoda Monte Carlo polega na modelowaniu procesu losowego w celu obliczenia wartości, która jest trudna (lub niemożliwa) do wyznaczenia analitycznie. Na maturze często pojawia się w kontekście obliczania pola powierzchni nietypowych figur lub właśnie przybliżania liczby $\pi$.
+### Ogólnie
+Metoda Monte Carlo polega na modelowaniu procesu losowego w celu obliczenia wartości,
+która jest trudna (lub niemożliwa) do wyznaczenia analitycznie.
+Na maturze często pojawia się w kontekście obliczania pola powierzchni nietypowych figur lub
+właśnie przybliżania liczby PI.
 
-## 1. Koncepcja Geometryczna
 
-# Obliczanie Pi metodą Monte Carlo 🎲
+### Częściowa metafora
+Wyobraź sobie, że masz kwadrat o boku `2R`,
+a wewnątrz niego wpisane jest koło o promieniu `R`.
+Jeśli zaczniesz losowo "rzucać rzutkami" w ten kwadrat,
+to stosunek rzutek, które trafiły w koło, do wszystkich rzutek oddanych w kwadrat,
+będzie w przybliżeniu równy stosunkowi pól tych figur.
 
-Metoda Monte Carlo polega na modelowaniu procesu losowego w celu obliczenia wartości, która jest trudna (lub niemożliwa) do wyznaczenia analitycznie. Na maturze często pojawia się w kontekście obliczania pola powierzchni nietypowych figur lub właśnie przybliżania liczby Pi.
+### Podział na etapy
 
-## 1. Koncepcja Geometryczna
+1.  **Definicja obszaru**: Określamy granice, w których będziemy losować punkty (np. kwadrat).
+2.  **Losowanie**: Generujemy dużą liczbę par współrzędnych `(x, y)`.
+3.  **Weryfikacja**: Sprawdzamy, czy punkt `(x, y)` spełnia warunek (np. czy leży wewnątrz koła).
+4.  **Estymacja**: Na podstawie proporcji trafień obliczamy wynik końcowy.
 
-Wyobraź sobie kwadrat o boku `a = 1`. Wpisujemy w niego ćwiartkę koła o promieniu `r = 1`.
 
-* **Pole kwadratu:** Pk = a * a = 1
-* **Pole ćwiartki koła:** Pc = (Pi * r^2) / 4 = Pi / 4
+### Implementacja w Pythonie
 
-Stosunek tych pól to:
-> Pc / Pk = (Pi / 4) / 1 = Pi / 4
+:::info Równanie koła
+Warunek `x**2 + y**2 <= 1`:
+- to matematyczne równanie koła.
+- Jeśli suma kwadratów współrzędnych jest mniejsza lub równa kwadratowi promienia,
+punkt leży wewnątrz.
 
-Stąd wzór na Pi:
-> **Pi = 4 * (Pc / Pk)**
+:::
 
-W metodzie Monte Carlo "strzelamy" losowymi punktami w ten kwadrat. Jeśli strzelimy wystarczająco dużo razy, stosunek punktów, które trafiły w koło (`nk`), do wszystkich punktów (`n`), przybliży nam stosunek pól.
+:::info `wynik_pi = 4 * (trafienia_w_kolo / liczba_prob)`
+Możnik `4` wynika z przekształcenia wzoru:
+- `Pole_Koła = PI * r**2`
+- `Pole_Kwadratu = (2r)**2` --> `Pole_Kawadratu = 4r**2`
 
-> **Pi ≈ 4 * (nk / n)**
 
-## 2. Implementacja w Pythonie
 
-Użyjemy funkcji `random.random()`, która generuje liczby z zakresu `[0, 1)`. To idealnie pokrywa nasz kwadrat jednostkowy.
-
-### Algorytm:
-1. Ustal liczbę prób `n` (im więcej, tym dokładniejszy wynik).
-2. W pętli losuj współrzędne punktu `(x, y)`.
-3. Sprawdź, czy punkt leży wewnątrz koła (z twierdzenia Pitagorasa: `x^2 + y^2 <= r^2`).
-4. Zliczaj trafienia.
-5. Oblicz wynik końcowy.
+:::
 
 ```python
 import random
 
-def oblicz_pi(n: int) -> float:
-    trafienia = 0
 
-    # Używamy '_' jako nazwy zmiennej, gdy nie jest ona nam potrzebna w pętli
-    for _ in range(n):
-        x = random.random()  # Losuje 0.0 <= x < 1.0
-        y = random.random()
+def oblicz_pi(liczba_prob):
+    trafienia_w_kolo = 0
 
-        # Sprawdzamy warunek koła (r=1, więc r^2=1)
-        # x^2 + y^2 <= 1
-        if x**2 + y**2 <= 1:
-            trafienia += 1
+    for _ in range(liczba_prob):
+        # 1. Losujemy współrzędne z zakresu [-1, 1]
+        x = random.uniform(-1, 1)
+        y = random.uniform(-1, 1)
 
-    return 4 * trafienia / n
+        # 2. Sprawdzamy warunek koła: x^2 + y^2 <= r^2
+        # Dla r = 1 wzór to: x**2 + y**2 <= 1
+        if x ** 2 + y ** 2 <= 1:
+            trafienia_w_kolo += 1
 
-# Testujemy
-n_prob = 1_000_000  # Python pozwala używać '_' dla czytelności liczb
-wynik = oblicz_pi(n_prob)
+    # 3. Wyliczamy pi na podstawie stosunku pól
+    # Pole koła / Pole kwadratu = pi*r^2 / (2r)^2 = pi / 4
+    # Zatem: pi = 4 * (trafienia / wszystkie_proby)
+    wynik_pi = 4 * (trafienia_w_kolo / liczba_prob)
+    return wynik_pi
 
-print(f"Przybliżenie Pi dla {n_prob} prób: {wynik}")
 
-import math
-print(f"Błąd bezwzględny: {abs(math.pi - wynik)}")
-
+# Przykład użycia
+n = 1000000
+print(f"Przybliżenie pi dla {n} prób: {oblicz_pi(n)}")
 ```
 
 
