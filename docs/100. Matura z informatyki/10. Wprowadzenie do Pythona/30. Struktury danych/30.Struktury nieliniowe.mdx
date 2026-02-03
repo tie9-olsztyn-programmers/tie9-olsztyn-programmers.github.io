@@ -13,50 +13,42 @@ Dane te nie tworzą prostego łańcucha, lecz organizują się w:
 - **sieci** (grafy).
 
 
-## 🌳 Drzewa Binarne (*Binary Trees*)
-:::info **Drzewo binarne**
-- to hierarchiczna struktura danych, w której każdy węzeł (*node*) ma posiada
-**co najwyżej dwoje dzieci**.
-- dzieci te są precyzyjnie rozróżniane jako:
-1.  **Lewe dziecko** (*Left Child*)
-2.  **Prawe dziecko** (*Right Child*)
+## 🌳 Drzewa
+Jest to nieliniowa struktura danych organizująca elementy w sposób hierarchiczny.
+Przypomina odwrócone drzewo w naturze – korzeń jest na górze, a gałęzie rosną w dół.
 
-Węzeł nieposiadający żadnych dzieci nazywany jest **liściem** (*leaf*).
+#### Cechy charakterystyczne:
+* **Korzeń (*Root*):** Węzeł początkowy, nie posiada rodzica.
+* **Dzieci (*Children*):** Każdy węzeł może mieć **dowolną liczbę** dzieci.
+* **Liść (*Leaf*):** Węzeł, który nie posiada dzieci.
+* **Brak cykli:** Z jednego punktu do drugiego prowadzi tylko jedna ścieżka.
 
-:::
 
-### Gdzie się tego używa? (Zastosowania Maturalne)
 
-Zrozumienie drzew binarnych jest kluczem do rozwiązania wielu zadań maturalnych.
-Najczęściej spotykane:
+#### Zastosowanie:
+* Systemy plików (katalogi i pliki).
+* Struktura dokumentów HTML/XML (DOM).
 
-- **BST (Binary Search Tree)**
-    – Drzewo Poszukiwań Binarnych.
-    - Kluczowa struktura pozwalająca na szybkie wyszukiwanie (`O(\log n)`),
-  gdzie `lewe < rodzic < prawe`.
 
-:::tip `lewe < rodzic < prawe`
-- Definiuje istotę **Drzewa Poszukiwań Binarnych (BST)**.
-- Oznacza on, że dla **każdego** węzła w drzewie muszą być spełnione dwa warunki:
 
-1.  Wartość w **lewym** dziecku (i całym lewym poddrzewie) musi być **mniejsza** od wartości rodzica.
-2.  Wartość w **prawym** dziecku (i całym prawym poddrzewie) musi być **większa** od wartości rodzica.
+### Drzewa binarne (*Binary Trees*)
+- To szczególny przypadek drzewa ogólnego.
+- W informatyce jest znacznie częściej wykorzystywane ze względu na przewidywalność struktury,
+co ułatwia tworzenie algorytmów rekurencyjnych.
 
-:::
+#### Cechy charakterystyczne:
+- **Ograniczenie**: Każdy węzeł może mieć maksymalnie dwoje dzieci.
+- **Rozróżnialność**: Dzieci mają swoje stałe pozycje – Lewe (Left) i Prawe (Right).
+- Drzewo binarne może być puste (None).
+
+
+#### Zastosowanie:
+- Drzewa BST (szybkie wyszukiwanie).
+- Drzewa wyrażeń arytmetycznych.
+- Algorytmy kompresji (np. drzewa Huffmana).### Gdzie się tego używa? (Zastosowania Maturalne)
 
 ### Prosta implementacja
-```python
-class Node:
-    def __init__(self, value):
-        self.value = value      # Przechowywana dana (np. liczba)
-        self.left = None        # Lewe poddrzewo (początkowo puste)
-        self.right = None       # Prawe poddrzewo (początkowo puste)
-
-    def __repr__(self):
-        return f"Node({self.value})"
-
-```
-
+Zdefiniujemy drzewo i przypiszmy im konkretne wartość, aby zamodelować:
 użycie dla
 ```
       10
@@ -66,7 +58,31 @@ użycie dla
   3
 ```
 
+
 ```python
+class Node:
+    def __init__(self, value):
+        self.value = value      # Przechowywana dana (np. liczba)
+        self.left = None        # Lewe poddrzewo (początkowo puste)
+        self.right = None       # Prawe poddrzewo (początkowo puste)
+
+    def __repr__(self):
+        # Ta metoda jest wywoływana, gdy drukujemy CAŁY obiekt
+        return f"Node({self.value})"
+
+    def print_in_order(self):
+        # 1. Visit Left Subtree (Safe Check)
+        if self.left:
+            self.left.print_in_order()
+
+        # 2. Visit Node (Self)
+        print(self.value, end=' ')
+
+        # 3. Visit Right Subtree (Safe Check)
+        if self.right:
+            self.right.print_in_order()
+
+
 # Create the root
 root = Node(10)
 
@@ -81,28 +97,37 @@ root.left.left = Node(3)
 print(f"Root: {root.value}")             # 10
 print(f"Left child: {root.left.value}")  # 5
 print(f"Left-Left leaf: {root.left.left.value}") # 3
+print(f"Right child-leaf: {root.right.value}")
 
+ ############
+# wypisanie #
+ ############
+root.print_in_order()
 
+## magiczna metod a __repr__
+print()
+print("-"*20)
+node_list = [root.left.left, root.left, root, root.right]
+print(f"List: {node_list}")
 ```
+## Kopiec (*Heap*)
 
-- **Kopce (Heaps)**
-    - używane w algorytmie sortowania przez kopcowanie (Heapsort) oraz w kolejkach priorytetowych.
-- **Drzewa Wyrażeń**
-    - Służą do reprezentacji równań matematycznych (np. w Odwrotnej Notacji Polskiej).
-- **Kodowanie Huffmana**
-    - Algorytm kompresji danych, częsty spotykany na maturze,
-    - opiera się na budowie drzewa binarnego na podstawie częstości występowania znaków.
+- Kopiec (najczęściej Kopiec Binarny) to drzewo binarne, na które nałożono bardzo rygorystyczne restrykcje.
+- Jest to struktura stworzona pod kątem wydajności dostępu do elementu ekstremalnego (min lub max).
+Dwa filary Kopca:
+- Zasada Kształtu (*Shape Property*):
+    - Drzewo musi być Zupełne (*Complete*).
+    - Wszystkie poziomy są wypełnione, a ostatni poziom jest wypełniany od lewej do prawej bez "dziur".
+  - Zasada Porządku (*Heap Property*):
+    - kopiec minimalny (*min-heap*):
+        - każdy węzeł ma wartość ≤ wartości swoich dzieci
+        - najmniejszy element jest w korzeniu (na początku tablicy),
+    - kopiec maksymalny (*max-heap*):
+        - każdy węzeł ma wartość ≥ wartości swoich dzieci
+        - największy element jest w korzeniu.
+    - Uwaga: Nie ma wymogu relacji "lewe mniejsze od prawego" (jak w BST).
 
 
-Na maturze najważniejszym rodzajem jest **Drzewo Binarne**, gdzie każdy rodzic ma co najwyżej dwoje dzieci (lewe i prawe).
-
-Rozgałęzienia lub mapowania. Relacje są bardziej złożone.
-
-    Drzewa (Trees):
-
-        Drzewa binarne (BST).
-
-        Kopiec (Heap) – tu jest jego logiczne miejsce!
 
     Słowniki i Zbiory (Hash Tables):
 
