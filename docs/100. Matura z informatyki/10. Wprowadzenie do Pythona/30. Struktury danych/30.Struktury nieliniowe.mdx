@@ -111,28 +111,143 @@ node_list = [root.left.left, root.left, root, root.right]
 print(f"List: {node_list}")
 ```
 ## Kopiec (*Heap*)
+:::into Czym jest kopiec?
+Kopiec to niemal pełne drzewo binarne, które spełnia warunek kopca:
+- *min-Heap* (kopiec typu min):
+    - Wartość każdego rodzica jest mniejsza lub równa wartościom jego dzieci.
+    - Na szczycie (korzeniu) zawsze znajduje się najmniejszy element.
 
-- Kopiec (najczęściej Kopiec Binarny) to drzewo binarne, na które nałożono bardzo rygorystyczne restrykcje.
-- Jest to struktura stworzona pod kątem wydajności dostępu do elementu ekstremalnego (min lub max).
-Dwa filary Kopca:
-- Zasada Kształtu (*Shape Property*):
-    - Drzewo musi być Zupełne (*Complete*).
-    - Wszystkie poziomy są wypełnione, a ostatni poziom jest wypełniany od lewej do prawej bez "dziur".
-  - Zasada Porządku (*Heap Property*):
-    - kopiec minimalny (*min-heap*):
-        - każdy węzeł ma wartość ≤ wartości swoich dzieci
-        - najmniejszy element jest w korzeniu (na początku tablicy),
-    - kopiec maksymalny (*max-heap*):
-        - każdy węzeł ma wartość ≥ wartości swoich dzieci
-        - największy element jest w korzeniu.
-    - Uwaga: Nie ma wymogu relacji "lewe mniejsze od prawego" (jak w BST).
+
+- *Max-Heap* (kopiec typu max):
+    - Wartość każdego rodzica jest większa lub równa wartościom jego dzieci.
+    - Na szczycie znajduje się największy element.
 
 
 
-    Słowniki i Zbiory (Hash Tables):
+:::
 
-        dict – klucz-wartość.
+#### Min-heap
+```
+          1                <-- Poziom 0 (Korzeń)
+       /     \
+      3       5            <-- Poziom 1
+     / \     / \
+    7   8   10  12         <-- Poziom 2
+```
 
-        set – unikalne elementy.
+Odpowiadający mu kod:
+```python
+# Indeksy:      0   1   2   3   4   5    6
+kopiec_lista = [1,  3,  5,  7,  8,  10,  12]
 
-    Grafy: Sieć połączeń (wierzchołki i krawędzie).
+"""
+Przeanalizujmy element o indeksie 1 (wartość 3) (Dla elementu o indeksie i):
+    Jego dzieci:
+        Lewe:  2 * 1 + 1 = 3    (wartość 7)     Lewe dziecko: 2 * i + 1
+        Prawe: 2 * 1 + 2 = 4    (wartość 8)     Prawe dziecko: 2 * i + 2
+    Jego rodzic:
+        (1 - 1) // 2 = 0        (wartość 1)     Rodzic: (i - 1) // 2
+"""
+```
+
+#### Max Heap
+```
+         100               <-- Największy (Korzeń)
+       /     \
+     80       90
+    /  \     /  \
+   10  20   30  40
+````
+
+Odpowiadająca implementacja w Pythonie:
+```python
+# Lista dla Max-Heap:
+max_heap = [100, 80, 90, 10, 20, 30, 40]
+
+"""
+Przeanalizujmy element o indeksie 2 (wartość 90) (Dla elementu o indeksie i):
+    Jego dzieci:
+        Lewe:  2 * 2 + 1 = 5    (wartość 30)    Lewe dziecko: 2 * i + 1
+        Prawe: 2 * 2 + 2 = 6    (wartość 40)    Prawe dziecko: 2 * i + 2
+    Jego rodzic:
+        (2 - 1) // 2 = 0        (wartość 100)   Rodzic: (i - 1) // 2
+"""
+
+```
+
+---
+## Słowniki (*dict*)
+:::note Co to jest słownik Pythonie?
+- Słownik to nieuporządkowana kolekcja par klucz-wartość.
+- Możesz o nim myśleć jak o prawdziwym słowniku językowym:
+    - słowo to klucz,
+    - definicja to wartość.
+
+:::
+
+### Kluczowe cechy słownika
+- Szybkość:
+    - Dostęp do wartości na podstawie klucza zajmuje czas stały `O(1)`.
+    - To znacznie szybciej niż przeszukiwanie listy!
+
+- Unikalność kluczy:
+    - W jednym słowniku nie mogą istnieć dwa identyczne klucze.
+    - Jeśli przypiszesz nową wartość do istniejącego klucza, stara zostanie nadpisana.
+
+- Typy danych:
+    - Kluczem może być dowolny typ niezmienny (np. `int`, `str`, `tuple`),
+    - wartością może być absolutnie wszystko.
+
+### CRUD na słowniku
+```python
+# 1. Tworzenie słownika
+wyniki = {
+    "Ania": 85,
+    "Bartek": 92,
+    "Cezary": 78
+}
+
+# 2. Dodawanie i aktualizacja danych
+wyniki["Daria"] = 95  # Dodanie nowej pary
+wyniki["Ania"] = 90   # Aktualizacja istniejącej wartości
+
+# 3. Bezpieczne pobieranie danych
+# Zamiast wyniki["Ewa"] (co rzuci błąd), używamy metody .get()
+punktacja = wyniki.get("Ewa", 0) # Jeśli nie ma Ewy, zwróci 0
+
+# 4. Usuwanie elementu
+del wyniki["Cezary"]
+```
+
+### Zastosowanie - liczymy częstość
+```python
+tekst = "matura_z_informatyki_2026"
+licznik = {}
+
+for znak in tekst:
+    # Jeśli znak jest w słowniku, zwiększ o 1,
+    # jeśli go nie ma, ustaw 0 i dodaj 1.
+    licznik[znak] = licznik.get(znak, 0) + 1
+
+# Wypisanie wyników
+for znak, ilosc in licznik.items():
+    print(f"Znak '{znak}' wystąpił {ilosc} razy.")
+
+```
+
+
+
+
+
+
+
+
+
+
+---
+## Zbiory (*set*)
+
+
+
+---
+## Grafy
