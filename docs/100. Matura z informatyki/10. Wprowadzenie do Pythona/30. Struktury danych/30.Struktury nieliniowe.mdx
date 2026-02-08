@@ -247,6 +247,147 @@ for znak, ilosc in licznik.items():
 ---
 ## Zbiory (*set*)
 
+:::note Zbiór (`set`)
+- To nieuporządkowana kolekcja **unikalnych** elementów.
+- Działa dokładnie jak matematyczne zbiory, które znasz z lekcji matematyki.
+
+
+Kluczowe Cechy:
+1.  **Unikalność:**
+    - W zbiorze nie może być dwóch takich samych elementów.
+    - Duplikaty są automatycznie usuwane.
+2.  **Nieuporządkowanie:**
+    - Elementy nie mają indeksów (nie ma `set[0]`).
+    - Nie wiesz, w jakiej kolejności zostaną wypisane.
+3.  **Szybkość:** Sprawdzenie, czy element należy do zbioru (`element in set`),
+        - trwa średnio **$O(1)$** (czas stały),
+        - podczas gdy w liście trwa to **$O(n)$**.
+
+:::
+
+### CRUD na zbiorze
+#### Create
+```python
+```python
+# Zbiór z elementami
+numbers = {1, 2, 3, 4, 5}
+
+# Zbiór z listy (świetny sposób na usunięcie duplikatów!)
+raw_data = [1, 2, 2, 3, 1, 4]
+unique_numbers = set(raw_data)  # Wynik: {1, 2, 3, 4}
+
+# Pusty zbiór - UWAGA!
+empty_set = set()      # To jest zbiór
+not_a_set = {}         # To jest SŁOWNIK (dict)!
+
+```
+
+#### Read
+Ponieważ zbiory nie mają indeksów, nie możemy pobrać elementu przez numbers[0]. Możemy jednak iterować lub sprawdzać obecność.
+```python
+numbers = {10, 20, 30}
+
+# Sprawdzanie obecności (Kluczowe na maturze!)
+if 20 in numbers:
+    print("Found!")
+
+# Iteracja
+for num in numbers:
+    print(num)  # Kolejność jest losowa!
+
+```
+
+#### Update
+```python
+s = {1, 2, 3}
+
+# Dodanie jednego elementu
+s.add(4)       # {1, 2, 3, 4}
+
+# Próba dodania duplikatu (nic nie zmienia, brak błędu)
+s.add(2)       # {1, 2, 3, 4}
+
+# Dodanie wielu elementów z innej kolekcji
+s.update([5, 6, 7])
+
+```
+
+#### Delete
+```python
+s = {1, 2, 3}
+
+# remove(x) - usuwa x, ale rzuca błąd (KeyError), jeśli elementu nie ma
+s.remove(2)    # OK
+
+# discard(x) - usuwa x, jeśli jest. Jeśli nie ma - nic nie robi (bezpieczne)
+s.discard(99)  # Brak błędu
+s.discard(1)   # OK
+
+# Wyczyszczenie całego zbioru
+s.clear()
+
+```
+
+### Operacje na zbiorach
+```python
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+
+# suma / union
+print(a | b)  # {1, 2, 3, 4, 5, 6} (Suma)
+
+# przecięcie / intersection
+print(a & b)  # {3, 4}             (Wspólne)
+
+# różnica / difference
+print(a - b)  # {1, 2}             (Tylko w A)
+print(b - a)  # {5, 6}             (Tylko w B)
+
+# różnica symetryczna / sym.diff
+print(a ^ b)  # {1, 2, 5, 6}       (te, które tylko w A i tylko w B, ale nie w obu naraz
+```
+
+### Przykład
+Masz dwa pliki z liczbami (dane_A.txt, dane_B.txt).
+
+1. Ile jest liczb unikalnych w obu plikach łącznie?
+2. Które liczby powtarzają się w obu plikach?
+3. Wypisz liczby, które są w A, ale nie ma ich w B.
+
+```python
+# Załóżmy, że wczytaliśmy dane do list
+list_a = [1, 2, 3, 4, 4, 5]  # Duplikaty wewnątrz listy nie mają znaczenia
+list_b = [4, 5, 6, 7, 8]
+
+# 1. Konwersja na zbiory (automatyczne usunięcie duplikatów)
+set_a = set(list_a)
+set_b = set(list_b)
+
+# Rozwiązanie 1: Ile unikalnych łącznie?
+# Używamy sumy zbiorów (|)
+all_unique = set_a | set_b
+print(f"Liczba unikalnych: {len(all_unique)}")
+
+# Rozwiązanie 2: Wspólne elementy
+# Używamy przecięcia (&)
+common = set_a & set_b
+print(f"Wspólne liczby: {common}")  # {4, 5}
+
+# Rozwiązanie 3: Są w A, nie ma w B
+# Używamy różnicy (-)
+only_in_a = set_a - set_b
+print(f"Tylko w A: {only_in_a}")    # {1, 2, 3}
+```
+
+
+
+
+
+
+
+
+
+
 
 
 ---
