@@ -1,0 +1,231 @@
+---
+title: Pierwsze kroki
+---
+
+
+## Łączymy się z bazą danych
+```python
+import mysql.connector
+
+# 1. Łączymy się z serwerem MySQL (nie z konkretną bazą, bo jej jeszcze nie ma!)
+baza = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password=""
+)
+
+cursor = baza.cursor() # Cursor to nasz "wskaźnik", który wykonuje polecenia
+print("Połączono z serwerem!")
+
+
+baza.close()
+
+```
+
+:::info Zapamiętaj
+`mysql.connector`
+- to sterownik (ang. driver). To tłumacz, który zamienia kod Pythona na język zrozumiały dla serwera bazy danych.
+-  to zestaw narzędz służący do nawiązywania połączenia i wysyłania zapytań.
+
+:::
+
+
+## Tworzymy bazę danych i tabelę
+Pod spodem poprzedniego kodu dopisujemy:
+
+```python
+# 2. Tworzymy bazę danych
+cursor.execute("CREATE DATABASE IF NOT EXISTS kosmos_db")
+
+# 3. Wchodzimy do tej bazy (odpowiednik komendy USE)
+cursor.execute("USE kosmos_db")
+
+# 4. Tworzymy tabelę na łaziki
+# Usuwamy starą wersję (dla celów testowych), żeby zacząć na czysto
+cursor.execute("DROP TABLE IF EXISTS laziki")
+
+sql_tabela = """
+CREATE TABLE laziki (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nazwa VARCHAR(50),
+    rok_wyslania INT,
+    status VARCHAR(50)
+)
+"""
+cursor.execute(sql_tabela)
+
+print("Baza i tabela gotowe! Sprawdź w phpMyAdmin.")
+```
+
+## Wczytywanie danych
+Stwórzmy w projekcie nowy plik `dane.txt`:
+```txt
+Curiosity 2011 Aktywny
+Perseverance 2020 Aktywny
+Opportunity 2003 Nieaktywny
+Spirit 2003 Nieaktywny
+```
+
+W PyCharmie dodajmy nowy plik pythonowy `dane_do_bazy.py`, w którym:
+- połączymy się z bazą danych
+- otworzymy plik,
+- podzielimy linie z tego pliku na kawałki i wrzucimy je do bazy.
+
+```python
+import mysql.connector
+
+# Łączymy się już z konkretną bazą
+baza = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="kosmos_db"
+)
+cursor = baza.cursor()
+
+# Otwieramy plik
+with open("dane.txt", "r", encoding="utf-8") as plik:
+    for linia in plik:
+        # Czyścimy białe znaki i dzielimy linię na listę
+        # np. ['Curiosity', '2011', 'Aktywny']
+        dane = linia.strip().split()
+
+        if len(dane) == 3:
+            nazwa = dane[0]
+            rok = int(dane[1])  # Zamieniamy rok na liczbę
+            status = dane[2]
+
+            # Zapytanie SQL z "bezpiecznikami" (%s)
+            sql = ("INSERT INTO laziki (nazwa, rok_wyslania, status)"
+                   " VALUES (%s, %s, %s)")
+            wartosci = (nazwa, rok, status)
+
+            cursor.execute(sql, wartosci)
+
+# BARDZO WAŻNE: Zatwierdzenie zmian!
+baza.commit()
+
+print(f"Dodano {cursor.rowcount} wierszy do bazy.")
+baza.close()
+
+```
+
+## Pobieranie danych z bazy
+Zróbmy nowy plik `pobieranie_danych.py`:
+```python
+import mysql.connector
+
+baza = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="kosmos_db"
+)
+cursor = baza.cursor()
+
+# Pobierz tylko te łaziki, które poleciały po 2010 roku
+cursor.execute("SELECT * FROM laziki WHERE rok_wyslania > 2010")
+
+# Ściągnij wyniki do zmiennej
+wyniki = cursor.fetchall()  # zwraca listę krotek [(1, 'Curiosity', 2011, 'Aktywny'), ...
+
+print("--- Raport z Bazy ---")
+for wiersz in wyniki:
+    # wiersz to krotka: (id, nazwa, rok, status)
+    print(f"{wiersz[0]}. Łazik: {wiersz[1]}, Rok: {wiersz[2]}")
+
+baza.close()
+```
+
+:::tip `fetchall()`
+- zwrócił listę, której elementami są krotki
+- jeżeli zmienimy definicję `cursor` na:
+    - `cursor = baza.cursor(dictionary=True)`
+- to `fetchall()` zwróci listę, której elementami będą słowniki
+ zwróci listę, której elementami są słowniki
+```
+[
+     {'id': 1, 'nazwa': 'Curiosity', 'rok_wyslania': 2011, 'status': 'Aktywny'},
+     {'id': 2, 'nazwa': 'Perseverance', 'rok_wyslania': 2020, 'status': 'Aktywny'},
+     {'id': 5, 'nazwa': 'Curiosity', 'rok_wyslania': 2011, 'status': 'Aktywny'},
+     {'id': 6, 'nazwa': 'Perseverance', 'rok_wyslania': 2020, 'status': 'Aktywny'}
+]
+```
+
+## Przydatne metody i właściwości Cursora
+
+Poniżej znajdziesz zestawienie najważniejszych narzędzi, jakie oferuje obiekt `cursor`.
+
+| Nazwa | Typ | Opis | Kiedy używać? |
+| :--- | :--- | :--- | :--- |
+| **`execute()`** | Metoda | Wykonuje pojedyncze zapytanie SQL. | Podstawa każdej operacji na bazie. |
+| **`fetchall()`** | Metoda | Pobiera **wszystkie** wyniki zapytania jako listę krotek. | Gdy chcesz wyświetlić pełną tabelę lub listę wyników. |
+| **`fetchone()`** | Metoda | Pobiera **tylko jeden** (następny) wynik. | Gdy szukasz konkretnego rekordu (np. po ID) lub liczysz średnią. |
+| **`rowcount`** | Właściwość | Zwraca liczbę wierszy, które zostały dodane, usunięte lub zmienione. | Po operacjach `INSERT`, `UPDATE`, `DELETE`, aby sprawdzić, czy zadziałały. |
+| **`lastrowid`** | Właściwość | Zwraca ID ostatnio dodanego wiersza (dla `AUTO_INCREMENT`). | Gdy dodajesz wpis i od razu potrzebujesz jego nowego ID. |
+| **`executemany()`**| Metoda | Wykonuje to samo zapytanie SQL dla listy danych. | Przy masowym imporcie danych (dużo szybsze niż pętla `for`). |
+
+---
+
+### Przykłady użycia w kodzie
+Gdy spodziawamy się jednego wyniku:
+  ```python
+  cursor.execute("SELECT * FROM laziki WHERE nazwa = 'Curiosity'")
+  wynik = cursor.fetchone()
+
+  if wynik:
+      print(f"Znaleziono: {wynik}")
+  else:
+      print("Nie ma takiego łazika.")
+
+```
+
+Raport usunięcia/edycji
+
+```python
+# Usuwamy stare misje
+cursor.execute("DELETE FROM laziki WHERE rok_wyslania < 2000")
+
+# Sprawdzamy, ile wierszy zniknęło
+print(f"Usunięto {cursor.rowcount} starych łazików.")
+```
+
+Pobieranie nowego ID
+```python
+sql = "INSERT INTO laziki (nazwa, rok) VALUES ('ExoMars', 2028)"
+cursor.execute(sql)
+baza.commit()
+
+print(f"Nowy łazik otrzymał ID numer: {cursor.lastrowid}")
+```
+
+
+Wielokrotny import
+```
+# Lista krotek przygotowana w Pythonie
+dane_do_wyslania = [
+('Curiosity', 2011),
+('Perseverance', 2020),
+('Spirit', 2003)
+]
+
+sql = "INSERT INTO laziki (nazwa, rok) VALUES (%s, %s)"
+
+# Uwaga: executemany zamiast execute!
+cursor.executemany(sql, dane_do_wyslania)
+baza.commit()
+
+print(f"Dodano {cursor.rowcount} rekordów jednym strzałem!")
+```
+
+:::tip Dlaczego akurat `%s`?
+- skrót `%s` pochodzi od angielskiego słowa String (napis).
+- Może to być mylące, bo używamy `%s` nawet dla liczb (int, float) czy dat.
+- Biblioteka MySQL widzi `%s`.
+    - Bierze Twoją daną (nawet jeśli to liczba 2049).
+    - Sama zamienia ją na odpowiedni format zrozumiały dla SQL.
+    - Sama dodaje cudzysłowy tam, gdzie trzeba.
+
+:::
+
+

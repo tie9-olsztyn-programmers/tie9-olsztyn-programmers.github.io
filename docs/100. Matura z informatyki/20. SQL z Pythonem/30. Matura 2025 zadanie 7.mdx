@@ -1,0 +1,41 @@
+---
+title: Zadanie 7. z matury 2025
+---
+
+## Treść zadania
+
+> W trzech plikach tekstowych o nazwach `laziki.txt`, `obszary.txt`, `pomiary.txt`
+> zapisano informacje zawierające dane o poszukiwaniu wody na Marsie w latach 2050–2080.
+> Łaziki zasilane energią słoneczną poruszają się po różnych obszarach Marsa i wykonują
+> pomiary georadarowe, na podstawie których szacują ilość wody i głębokość, na której się
+> ona znajduje. Pierwszy wiersz każdego z plików jest wierszem nagłówkowym, a dane
+> w wierszach rozdzielono znakami tabulacji.
+
+
+> Plik o nazwie `laziki.txt` zawiera informacje o różnych łazikach, które wykonywały pomiary.
+> W każdym wierszu tego pliku znajdują się:
+- `nr_lazika` – co najwyżej trzycyfrowy, unikatowy numer łazika
+- `nazwa_lazika` – nazwa łazika (tekst do 50 znaków)
+- `rok_wyslania` – rok startu z Ziemi
+- `wsp_ladowania` – współrzędne lądowania na Marsie oddzielone znakiem przecinka i spacją
+
+**Przykład*:
+```
+nr_lazika nazwa_lazika      rok_wyslania    wsp_ladowania
+1         Mariner 3         2049            50.51N, 70.01E
+2         Mariner 6         2050            11.90N, 119.49E
+3 Mariner 7 2050 44.90S, 130.80W
+```
+
+> Plik o nazwie `obszary.txt` zawiera informacje o obszarach na Marsie.
+> W każdym wierszu tego pliku znajdują się:
+- `kod_obszaru` – pięcioznakowy, unikatowy kod obszaru
+- `nazwa_obszaru` – nazwa obszaru (tekst do 50 znaków)
+
+**Przykład**:
+```
+kod_obszaru nazwa_obszaru
+MC-01       Mare Boreum
+MC-02       Diacria
+MC-03       Arcadia
+```

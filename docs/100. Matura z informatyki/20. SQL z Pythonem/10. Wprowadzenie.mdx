@@ -1,0 +1,36 @@
+---
+title: Przygotowanie środowiska
+---
+
+## PychCharm
+- w PyCharm tworzysz nowy projekt z `.venv` (wirtualnym środowiskiem)
+- otwórz ten projekt i terminalu doinstaluj bibliotekę pozwalającą na komunikacje Python z MySql:
+    - `pip install mysql-connector-python` lub (o ile ta nie działa):
+    - `pip3 install mysql-connector-python`
+
+## XAMPP
+Zanim zaczniesz pisać kod, upewnij się, że Twój serwer bazy danych działa.
+- Otwórz XAMPP Control Panel.
+- Uruchom moduł MySQL (przycisk Start).
+- Sprawdź, czy świeci się na zielono.
+
+:::tip Gdy MySql się wyłącza
+- może się zdarzyć, że MySql będzie się sam wyłączał
+- być może dlatego, że jakaś jego instancja już działa na danym porcie
+
+**Port 3306**
+- to domyślne "drzwi" do bazy
+- ten port może być zajęty przez inny program lub "zawieszoną" starą wersję MySQL.
+- w Menadżerze zadań znajdź proces `mysql.exe` (lub podobny, w zależności od twojego systemu)
+- lub w terminalu "zabij ten proces":
+    - `sudo killall mysqld` lub
+    - `sudo pkill mysqld`
+    - Windows (terminal jako administrator) `taskkill /F /IM mysqld.exe`
+:::
+
+
+
+
+
+
+
