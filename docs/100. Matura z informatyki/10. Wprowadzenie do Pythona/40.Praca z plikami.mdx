@@ -1,0 +1,255 @@
+---
+title: Praca z plikami w Pythonie
+---
+
+# Praca z plikami
+Konstrukcja `with` gwarantuje, że **plik zostanie zamknięty automatycznie**,
+nawet jeśli w trakcie czytania wystąpi błąd programu.
+
+Nie musisz pamiętać o `file.close()`.
+
+```python
+with open('dane.txt', 'r') as file:
+    content = file.read()
+    # Tu plik jest otwarty
+# Tu plik jest już zamknięty automatycznie
+```
+
+## Wczytywanie plików `.txt`
+Tryby otwarcia pliku:
+- `'r'` (read) – tylko do odczytu (domyślny).
+- `'w'` (write) – do zapisu (kasuje starą zawartość!).
+- `'a'` (append) – do dopisywania na końcu pliku.
+
+
+### Iteracja linia po linii
+Jest to najbardziej wydajny sposób.
+Nie wczytujemy całego gigabajta danych do pamięci, tylko bierzemy po jednej linijce.
+
+
+liczby.txt
+```txt
+ 10
+70
+-3
+   2
+1
+98
+43
+```
+
+```python
+data = []  # Lista na nasze dane
+
+with open('liczby.txt', 'r') as f:
+    for line in f:
+        # 1. line.strip() - usuwa 'białe znaki' z początku i końca (spacje, \n)
+        # 2. int(line) - konwersja napisu na liczbę
+        number = int(line.strip())
+        data.append(number)
+
+print(data[:5]) # Wypisz 5 pierwszych liczb
+```
+
+### Wyczytywanie wszystkiego na raz
+
+napisy.txt
+```
+ola Poszła do przedszkola
+a zenek poszedł na pieniek
+```
+
+```python
+
+with open('napisy.txt', 'r') as f:
+    lines = f.readlines()
+    # lines to np: ['ola Poszła do przedszkola\n', 'a zenek poszedł na pieniek\n']
+    print(lines)
+
+    # Szybkie oczyszczenie listy (list comprehension)
+    clean_lines = [x.strip() for x in lines]
+    print(clean_lines) # ['ola Poszła do przedszkola', 'a zenek poszedł na pieniek']
+
+```
+
+### Wczytywanie danych wielokolumnowych (pseudo csv)
+pary.txt
+```txt
+10 20
+5 15
+100 200
+```
+
+```python
+pairs = []
+
+with open('pary.txt', 'r') as f:
+    for line in f:
+        # line.split() domyślnie dzieli po spacjach i tabulatorach
+        # Zwraca listę napisów, np. ['10', '20']
+        parts = line.strip().split()
+
+        # Konwersja na inty
+        a = int(parts[0])
+        b = int(parts[1])
+
+        pairs.append((a, b))
+
+print(pairs) # [(10, 20), (5, 15), (100, 200)]
+```
+
+## Praca z plikami `.csv`
+Pliki .csv (Comma Separated Values) to format tabelaryczny.
+
+dane.csv
+```csv
+id;imie;nazwisko;wiek;srednia
+1;Adam;Nowak;19;4.55
+2;Ewa;Kowalska;18;5.00
+3;Jan;Wiśniewski;19;3.25
+4;Maria;Zielińska;18;4.90
+5;Piotr;Wójcik;19;2.80
+6;Anna;Lewandowska;18;5.20
+```
+### Ręczna praca z plikami - używamy metody`split(";")
+```python
+dane = []
+with open('dane.csv', 'r') as f:
+    for line in f:
+        # Jeśli separatorem jest średnik:
+        row = line.strip().split(';')
+        # row[0] to pierwsza kolumna, row[1] druga...
+        # print(row[1], end=" ") # imie Adam Ewa Jan ...
+        print(row[2], end=" ") # nazwisko Nowak Kowalska ...
+        dane.append(row)
+
+print("\n-------")
+print(dane)
+# [['id', 'imie', 'nazwisko', 'wiek', 'srednia'], ['1', 'Adam', 'Nowak', '19', '4.55'], ...
+```
+
+### Użycie biblioteki `csv`
+
+```python
+import csv
+
+dane = []
+
+with open('dane.csv', 'r', encoding='utf-8') as f:
+    # Tworzymy czytnik, podając separator (delimiter)
+    reader = csv.reader(f, delimiter=';')
+
+    # Opcjonalnie: pomijamy nagłówek
+    header = next(reader)
+
+    for row in reader:
+        # row to lista napisów, np. ['Jan', 'Kowalski', '30']
+        imie = row[1]
+        wiek = int(row[3])
+        print(f"{imie} ma {wiek} lat")
+
+        dane.append(row)
+
+print(dane)
+```
+
+### Praca z danymi
+```python
+import csv
+
+uczniowie = []
+
+with open("dane.csv", "r", encoding="utf-8") as f:
+    reader = csv.reader(f, delimiter=";") # delimiter na ";", bo tak jest w pliku
+
+    naglowki = next(reader)
+    print(naglowki)
+
+    for row in reader:
+        # pamiętamy, że row to lista np, ['1', 'Adam', 'Nowak', '19', '4.55']
+
+        # konwersja typów
+        dane_ucznia = {
+            "id": int(row[0]),
+            "imie": row[1],
+            "nazwisko": row[2],
+            "wiek": int(row[3]),
+            "srednia": float(row[4]), #UWAGA! w pliku musi być kropka 4.5 a nie przecinek 4,5 !!!
+        }
+
+        uczniowie.append(dane_ucznia)
+
+
+# --- analiza danych ---
+print(f"Liczba wczytanych uczniów: {len(uczniowie)}")
+
+# obliczamy średnią wieku
+suma_wiek = 0
+for uczen in uczniowie:
+    suma_wiek += uczen["wiek"]
+
+srednia_wieku = suma_wiek / len(uczniowie)
+print(f"Średnia wieku klasy: {srednia_wieku:.2f}")
+
+# odnajdujemy prymusa
+the_best = uczniowie[0]
+for u in uczniowie:
+    if u["srednia"] > the_best["srednia"]:
+        the_best = u
+
+print(f"Najlepszy uczeń to: {the_best['imie']} {the_best['nazwisko']} ze średnią {the_best["srednia"]:.2f}")
+
+
+```
+
+
+:::important Gdy `,` zamiast `.`
+Na maturze często dostaniesz plik wygenerowany z polskiego Excela, gdzie będzie przecinek: `4,55`.
+
+```python
+ocena = "3,57" # to string
+print(ocena)
+# ocena = float(ocena) # to float  # error ValueError: could not convert string to float: '3,57'
+ocena = float(ocena.replace(",", "."))
+print(ocena) # 3.57
+
+# w naszym przykładzie z danymi:
+# ...
+# "srednia": float(row[4]).replace("'", "."), #UWAGA! w pliku musi być kropka 4.5 a nie przecinek 4,5 !!!
+#        }
+
+```
+
+:::
+
+---
+## Zapisywanie danych do pliku
+
+```python
+wynik_a = 150
+wynik_b = [10, 20, 30]
+
+with open('wyniki4.txt', 'w', encoding='utf-8') as f:
+    # Zapisz nagłówek
+    f.write("Zadanie 4\n")
+
+    # Podpunkt a
+    f.write(f"a) {wynik_a}\n")
+
+    # Podpunkt b (iteracja)
+    f.write("b)\n")
+    for x in wynik_b:
+        f.write(f"{x} ")  # Liczby oddzielone spacją
+
+    # Pamiętaj o \n na końcu, jeśli chcesz nową linię!
+    f.write("\n")
+
+```
+
+:::warning Uwaga na tryb `'w'`
+- Otwarcie pliku w trybie `'w'` kasuje jego poprzednią zawartość!
+- Jeśli rozwiązujesz zadanie etapami i uruchamiasz skrypt wielokrotnie, tryb 'w' jest OK (nadpisuje stary, zły wynik).
+- Jeśli jednak masz dwa oddzielne skrypty zapisujące do tego samego pliku, drugi musi użyć trybu 'a' (append).
+
+:::
+
