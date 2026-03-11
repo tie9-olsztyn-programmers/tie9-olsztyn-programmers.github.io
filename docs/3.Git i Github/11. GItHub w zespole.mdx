@@ -35,7 +35,53 @@ Dzięki tej procedurze zmniejszycie prawdopodoństwo konfliktów
 :::
 
 
+---
 
+# Github w pracy zespołowej (*Workflow* z *Pull Requestami*)
+
+Gdy pracujesz z kolegą:
+- Na GitHubie macie wspólne repo, gałąź `master` (lub `main`) zdalną.
+- **Zawsze zaczynaj od aktualizacji danych** na swojej lokalnej gałęzi `master` z gałęzią zdalną przez:
+> `git pull origin master`
+
+
+## Chcesz pracować lokalnie nad wspólnym projektem
+- Tworzysz lokalnie dodatkową gałąź: `git switch -c moja-praca`
+(oczywiście nazwa `moja-praca` powinna opisywać to, co robisz, np. `dodanie-logowania`).
+- Pracujesz na swojej gałęzi i robisz własne `commit`y.
+- Twój kolega w tym czasie może "wypushować" swoje zmiany na GitHuba, więc wasz projekt zaczyna mieć różne historie.
+
+## Chcesz wysłać swoje commity na GitHuba. Aby nie było konfliktów:
+- Przełączasz się u siebie lokalnie na główną gałąź: `git switch master`
+- Pobierasz nowości od kolegi: `git pull origin master`
+- Wracasz na swoją gałąź: `git switch moja-praca`
+- Dopasowujesz swoją historię do zaktualizowanego mastera (nakładasz swoją pracę na to, co zrobił kolega):
+    - `git rebase master` (Jeśli wystąpią konflikty, rozwiązujesz je teraz lokalnie).
+
+
+## Jak pracować z Pull Request (Zamiast lokalnego Merge!):
+- Gdy historia jest już uporządkowana przez `rebase`, nie łączysz kodu lokalnie. Robisz to przez GitHuba!
+- Wysyłasz swoją gałąź na serwer: `git push origin moja-praca`
+- Otwierasz GitHuba w przeglądarce:
+    - We wspólnym repozytorium pojawi się zielony przycisk "Compare & pull request". Kliknij go.
+- Tworzysz *Pull Request* (PR):
+    - Nadajesz tytuł i krótko opisujesz, co zmieniłeś.
+    - W sekcji *Reviewers* (po prawej stronie) wybierasz swojego kolegę z zespołu.
+    - Klikasz "Create pull request".
+- *Code Review* (Sprawdzanie kodu):
+    - Twój kolega dostaje powiadomienie.
+    - Przegląda Twój kod, może dodać komentarze w konkretnych linijkach, poprosić o poprawki lub zatwierdzić zmiany
+  (*Approve*).
+- Scalenie (*Merge*):
+    - Gdy kolega zatwierdzi Twój kod, klikacie zielony przycisk "Merge pull request" bezpośrednio na stronie GitHuba.
+    - Twoja gałąź `moja-praca` zostaje oficjalnie włączona do master!
+
+
+## Sprzątanie po Pull Requeście:
+Gdy Twój kod jest już na GitHubie w gałęzi master:
+- Wracasz do terminala: `git switch master`
+- Pobierasz scalony projekt: `git pull origin master`
+- Usuwasz niepotrzebną już lokalną gałąź roboczą: `git branch -d moja-praca`
 
 
 
