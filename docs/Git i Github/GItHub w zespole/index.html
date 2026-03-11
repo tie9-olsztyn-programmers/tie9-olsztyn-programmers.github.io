@@ -5,8 +5,8 @@
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Github w pracy zespołowej | TIE  9 Olsztyn Programmers</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://tie9-olsztyn-programmers.github.io/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://tie9-olsztyn-programmers.github.io/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://tie9-olsztyn-programmers.github.io/docs/Git i Github/GItHub w zespole"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Github w pracy zespołowej | TIE  9 Olsztyn Programmers"><meta data-rh="true" name="description" content="Gdy pracujesz z kolegą"><meta data-rh="true" property="og:description" content="Gdy pracujesz z kolegą"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://tie9-olsztyn-programmers.github.io/docs/Git i Github/GItHub w zespole"><link data-rh="true" rel="alternate" href="https://tie9-olsztyn-programmers.github.io/docs/Git i Github/GItHub w zespole" hreflang="en"><link data-rh="true" rel="alternate" href="https://tie9-olsztyn-programmers.github.io/docs/Git i Github/GItHub w zespole" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Github w pracy zespołowej","item":"https://tie9-olsztyn-programmers.github.io/docs/Git i Github/GItHub w zespole"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="TIE  9 Olsztyn Programmers RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="TIE  9 Olsztyn Programmers Atom Feed"><link rel="stylesheet" href="/assets/css/styles.f0964db2.css">
-<script src="/assets/js/runtime~main.dbbecf52.js" defer="defer"></script>
-<script src="/assets/js/main.2621dcf2.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.a0610377.js" defer="defer"></script>
+<script src="/assets/js/main.523c4d81.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -45,6 +45,71 @@
 <li class="">następnie na <code>master</code> robisz <code>merge</code> z gałęzią <code>moja-praca</code>,</li>
 <li class="">na końcu pushujesz <code>master</code> na GitHuba.</li>
 <li class="">pamiętaj o aktualizacji lokalnej gałezi <code>master</code></li>
-</ul></div></div></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/3.Git i Github/11. GItHub w zespole.mdx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/Git i Github/Przepisywanie historii"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">rebase - przepisywanie historii</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/Matura z informatyki/Wprowadzenie do Pythona/Wprowadzenie"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Wprowadzenie do Pythona</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#gdy-pracujesz-z-kolegą" class="table-of-contents__link toc-highlight">Gdy pracujesz z kolegą</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 My Project, Inc. Built with Docusaurus.</div></div></div></footer></div>
+</ul></div></div>
+<hr>
+<h1>Github w pracy zespołowej (<em>Workflow</em> z <em>Pull Requestami</em>)</h1>
+<p>Gdy pracujesz z kolegą:</p>
+<ul>
+<li class="">Na GitHubie macie wspólne repo, gałąź <code>master</code> (lub <code>main</code>) zdalną.</li>
+<li class=""><strong>Zawsze zaczynaj od aktualizacji danych</strong> na swojej lokalnej gałęzi <code>master</code> z gałęzią zdalną przez:</li>
+</ul>
+<blockquote>
+<p><code>git pull origin master</code></p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="chcesz-pracować-lokalnie-nad-wspólnym-projektem">Chcesz pracować lokalnie nad wspólnym projektem<a href="#chcesz-pracować-lokalnie-nad-wspólnym-projektem" class="hash-link" aria-label="Direct link to Chcesz pracować lokalnie nad wspólnym projektem" title="Direct link to Chcesz pracować lokalnie nad wspólnym projektem" translate="no">​</a></h2>
+<ul>
+<li class="">Tworzysz lokalnie dodatkową gałąź: <code>git switch -c moja-praca</code>
+(oczywiście nazwa <code>moja-praca</code> powinna opisywać to, co robisz, np. <code>dodanie-logowania</code>).</li>
+<li class="">Pracujesz na swojej gałęzi i robisz własne <code>commit</code>y.</li>
+<li class="">Twój kolega w tym czasie może &quot;wypushować&quot; swoje zmiany na GitHuba, więc wasz projekt zaczyna mieć różne historie.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="chcesz-wysłać-swoje-commity-na-githuba-aby-nie-było-konfliktów">Chcesz wysłać swoje commity na GitHuba. Aby nie było konfliktów:<a href="#chcesz-wysłać-swoje-commity-na-githuba-aby-nie-było-konfliktów" class="hash-link" aria-label="Direct link to Chcesz wysłać swoje commity na GitHuba. Aby nie było konfliktów:" title="Direct link to Chcesz wysłać swoje commity na GitHuba. Aby nie było konfliktów:" translate="no">​</a></h2>
+<ul>
+<li class="">Przełączasz się u siebie lokalnie na główną gałąź: <code>git switch master</code></li>
+<li class="">Pobierasz nowości od kolegi: <code>git pull origin master</code></li>
+<li class="">Wracasz na swoją gałąź: <code>git switch moja-praca</code></li>
+<li class="">Dopasowujesz swoją historię do zaktualizowanego mastera (nakładasz swoją pracę na to, co zrobił kolega):<!-- -->
+<ul>
+<li class=""><code>git rebase master</code> (Jeśli wystąpią konflikty, rozwiązujesz je teraz lokalnie).</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="jak-pracować-z-pull-request-zamiast-lokalnego-merge">Jak pracować z Pull Request (Zamiast lokalnego Merge!):<a href="#jak-pracować-z-pull-request-zamiast-lokalnego-merge" class="hash-link" aria-label="Direct link to Jak pracować z Pull Request (Zamiast lokalnego Merge!):" title="Direct link to Jak pracować z Pull Request (Zamiast lokalnego Merge!):" translate="no">​</a></h2>
+<ul>
+<li class="">Gdy historia jest już uporządkowana przez <code>rebase</code>, nie łączysz kodu lokalnie. Robisz to przez GitHuba!</li>
+<li class="">Wysyłasz swoją gałąź na serwer: <code>git push origin moja-praca</code></li>
+<li class="">Otwierasz GitHuba w przeglądarce:<!-- -->
+<ul>
+<li class="">We wspólnym repozytorium pojawi się zielony przycisk &quot;Compare &amp; pull request&quot;. Kliknij go.</li>
+</ul>
+</li>
+<li class="">Tworzysz <em>Pull Request</em> (PR):<!-- -->
+<ul>
+<li class="">Nadajesz tytuł i krótko opisujesz, co zmieniłeś.</li>
+<li class="">W sekcji <em>Reviewers</em> (po prawej stronie) wybierasz swojego kolegę z zespołu.</li>
+<li class="">Klikasz &quot;Create pull request&quot;.</li>
+</ul>
+</li>
+<li class=""><em>Code Review</em> (Sprawdzanie kodu):<!-- -->
+<ul>
+<li class="">Twój kolega dostaje powiadomienie.</li>
+<li class="">Przegląda Twój kod, może dodać komentarze w konkretnych linijkach, poprosić o poprawki lub zatwierdzić zmiany
+(<em>Approve</em>).</li>
+</ul>
+</li>
+<li class="">Scalenie (<em>Merge</em>):<!-- -->
+<ul>
+<li class="">Gdy kolega zatwierdzi Twój kod, klikacie zielony przycisk &quot;Merge pull request&quot; bezpośrednio na stronie GitHuba.</li>
+<li class="">Twoja gałąź <code>moja-praca</code> zostaje oficjalnie włączona do master!</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="sprzątanie-po-pull-requeście">Sprzątanie po Pull Requeście:<a href="#sprzątanie-po-pull-requeście" class="hash-link" aria-label="Direct link to Sprzątanie po Pull Requeście:" title="Direct link to Sprzątanie po Pull Requeście:" translate="no">​</a></h2>
+<p>Gdy Twój kod jest już na GitHubie w gałęzi master:</p>
+<ul>
+<li class="">Wracasz do terminala: <code>git switch master</code></li>
+<li class="">Pobierasz scalony projekt: <code>git pull origin master</code></li>
+<li class="">Usuwasz niepotrzebną już lokalną gałąź roboczą: <code>git branch -d moja-praca</code></li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/3.Git i Github/11. GItHub w zespole.mdx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/Git i Github/Przepisywanie historii"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">rebase - przepisywanie historii</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/Matura z informatyki/Wprowadzenie do Pythona/Wprowadzenie"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Wprowadzenie do Pythona</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#gdy-pracujesz-z-kolegą" class="table-of-contents__link toc-highlight">Gdy pracujesz z kolegą</a></li><li><a href="#chcesz-pracować-lokalnie-nad-wspólnym-projektem" class="table-of-contents__link toc-highlight">Chcesz pracować lokalnie nad wspólnym projektem</a></li><li><a href="#chcesz-wysłać-swoje-commity-na-githuba-aby-nie-było-konfliktów" class="table-of-contents__link toc-highlight">Chcesz wysłać swoje commity na GitHuba. Aby nie było konfliktów:</a></li><li><a href="#jak-pracować-z-pull-request-zamiast-lokalnego-merge" class="table-of-contents__link toc-highlight">Jak pracować z Pull Request (Zamiast lokalnego Merge!):</a></li><li><a href="#sprzątanie-po-pull-requeście" class="table-of-contents__link toc-highlight">Sprzątanie po Pull Requeście:</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 My Project, Inc. Built with Docusaurus.</div></div></div></footer></div>
 </body>
 </html>
